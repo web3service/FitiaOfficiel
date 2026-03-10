@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITIA PRO | Ecosystem Mining</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg: #050505;
+            --surface: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 215, 0, 0.15);
+            --primary: #FFD700; /* Or pur */
+            --primary-dim: #B8860B;
+            --accent: #FFA500; /* Orange pour dégradé */
+            --text: #ffffff;
+            --muted: #9ca3af;
+            --gradient: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            --shadow-3d: 0 20px 40px rgba(255, 215, 0, 0.15);
+            --glow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6; 
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 215, 0, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(255, 165, 0, 0.08) 0%, transparent 25%);
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; }
+
+        /* --- UTILITIES --- */
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 16px 32px; border-radius: 16px; font-weight: 700; font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            cursor: pointer; border: none; position: relative; overflow: hidden;
+        }
+        
+        .btn-primary { 
+            background: var(--gradient); 
+            color: #000; 
+            box-shadow: var(--shadow-3d);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .btn-primary:hover { 
+            transform: translateY(-4px) scale(1.02); 
+            box-shadow: 0 30px 60px rgba(255, 215, 0, 0.25); 
+        }
+        
+        .btn-outline { 
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid var(--border); 
+            color: var(--text); 
+            backdrop-filter: blur(10px);
+        }
+        .btn-outline:hover { 
+            background: rgba(255, 215, 0, 0.1); 
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border); 
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Effet de brillance sur les panels */
+        .glass-panel::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.5s;
+        }
+        .glass-panel:hover::before { left: 100%; }
+
+        /* --- HEADER --- */
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 20px 0; transition: all 0.3s; }
+        header.scrolled { 
+            background: rgba(5, 5, 5, 0.95); 
+            border-bottom: 1px solid var(--border); 
+            padding: 12px 0;
+            backdrop-filter: blur(20px);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; }
+        .logo-icon { 
+            width: 40px; height: 40px; 
+            background: var(--gradient); 
+            border-radius: 10px; 
+            display: grid; place-items: center; 
+            font-size: 1.2rem; color: #000;
+            box-shadow: var(--glow);
+        }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { color: var(--muted); font-size: 0.95rem; font-weight: 500; transition: color 0.3s; position: relative; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+            background: var(--primary); transition: 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        
+        /* --- HERO SECTION --- */
+        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding-top: 100px; }
+        .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center; }
+        
+        .hero-badge { 
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 16px; border-radius: 30px; font-size: 0.8rem; font-weight: 700; 
+            background: rgba(255, 215, 0, 0.1); color: var(--primary); 
+            border: 1px solid rgba(255, 215, 0, 0.3); 
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+        }
+        
+        .hero h1 { 
+            font-size: 4.5rem; line-height: 1.1; font-weight: 800; 
+            letter-spacing: -2px; margin-bottom: 24px; 
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .gradient-text { 
+            background: var(--gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+        }
+        .hero p { font-size: 1.2rem; color: var(--muted); margin-bottom: 40px; max-width: 550px; }
+        
+        /* --- HERO VISUAL 3D --- */
+        .hero-visual { position: relative; display: flex; justify-content: center; perspective: 1000px; }
+        .mockup-container { 
+            position: relative; width: 340px; height: 680px; 
+            background: #111; border-radius: 50px; 
+            border: 10px solid #2a2a2a; 
+            box-shadow: 
+                0 50px 100px -20px rgba(0,0,0,0.9),
+                inset 0 0 0 2px rgba(255,255,255,0.1);
+            overflow: hidden; 
+            transform: rotateY(-10deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+        .mockup-container:hover { transform: rotateY(0deg) rotateX(0deg); }
+        
+        .mockup-screen { 
+            width: 100%; height: 100%; 
+            background: linear-gradient(180deg, #1a1a1a 0%, #000000 100%); 
+            padding: 24px; display: flex; flex-direction: column; gap: 20px; 
+        }
+        .mockup-header { display: flex; justify-content: space-between; font-weight: 700; font-size: 1rem; color: var(--primary); }
+        
+        .mockup-chart { height: 100px; display: flex; align-items: flex-end; gap: 6px; margin: 20px 0; }
+        .bar { 
+            flex: 1; 
+            background: var(--gradient); 
+            border-radius: 4px 4px 0 0; 
+            opacity: 0.8; 
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            animation: chartAnim 2s infinite ease-in-out alternate; 
+        }
+        @keyframes chartAnim { from { height: 30%; opacity: 0.5; } to { height: 90%; opacity: 1; } }
+        
+        .mockup-btn { 
+            margin-top: auto; 
+            background: var(--gradient); color: #000; 
+            padding: 16px; border-radius: 16px; 
+            text-align: center; font-weight: 800; 
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .floating-card { 
+            position: absolute; padding: 20px 24px; 
+            background: rgba(30, 30, 30, 0.9); backdrop-filter: blur(20px);
+            border-radius: 20px; display: flex; align-items: center; gap: 15px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            z-index: 10;
+        }
+        .fc-top { top: 15%; right: -30px; animation: float 5s ease-in-out infinite; }
+        .fc-bottom { bottom: 20%; left: -30px; animation: float 6s ease-in-out infinite reverse; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        /* --- STATS BAR --- */
+        .stats-bar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 60px 0; background: rgba(255,255,255,0.02); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; }
+        .stat-item h3 { font-size: 2.5rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
+        .stat-item p { color: var(--muted); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; }
+
+        /* --- FEATURES --- */
+        .features-section { padding: 140px 0; }
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 80px; }
+        .section-header h2 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; }
+        .section-header p { color: var(--muted); font-size: 1.1rem; }
+        
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .feature-card { padding: 40px 30px; transition: 0.4s; }
+        .feature-card:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--primary); 
+            box-shadow: var(--shadow-3d);
+        }
+        .f-icon { 
+            width: 64px; height: 64px; 
+            background: rgba(255, 215, 0, 0.1); 
+            border-radius: 16px; 
+            display: grid; place-items: center; 
+            font-size: 2rem; margin-bottom: 24px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: white; }
+        .feature-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+
+        /* --- SOCIAL COMMUNITY --- */
+        .social-section { padding: 100px 0; border-top: 1px solid var(--border); }
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .social-text h2 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; }
+        .social-text p { color: var(--muted); margin-bottom: 40px; font-size: 1.1rem; }
+        
+        .social-icons-large { display: flex; gap: 20px; flex-wrap: wrap; }
+        .social-btn { 
+            width: 64px; height: 64px; border-radius: 18px; 
+            background: var(--surface); border: 1px solid var(--border); 
+            display: grid; place-items: center; transition: 0.4s; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .social-btn svg { width: 28px; height: 28px; fill: var(--muted); transition: 0.4s; }
+        .social-btn:hover { 
+            background: var(--gradient); 
+            border-color: var(--primary); 
+            box-shadow: var(--glow);
+            transform: translateY(-5px);
+        }
+        .social-btn:hover svg { fill: #000; transform: scale(1.1); }
+
+        /* --- REFERRAL / JOIN --- */
+        .referral-section { padding: 140px 0; background: linear-gradient(180deg, rgba(255, 215, 0, 0.05) 0%, transparent 100%); }
+        .ref-content { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+        .ref-text h2 { font-size: 3rem; font-weight: 800; margin-bottom: 24px; }
+        .ref-text p { color: var(--muted); margin-bottom: 50px; font-size: 1.1rem; }
+        
+        .copy-box { 
+            background: #0a0a0a; border-radius: 24px; padding: 40px; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6); 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .copy-box::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--gradient);
+        }
+        .copy-icon { font-size: 3.5rem; margin-bottom: 20px; display: block; filter: drop-shadow(0 0 20px rgba(255,215,0,0.4)); }
+        .copy-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; color: white; }
+        .copy-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 30px; }
+        
+        .btn-copy-full { 
+            width: 100%; padding: 20px; 
+            background: var(--gradient); color: #000; 
+            border: none; border-radius: 16px; 
+            font-weight: 800; cursor: pointer; font-size: 1.1rem; 
+            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 12px;
+            box-shadow: var(--shadow-3d);
+        }
+        .btn-copy-full:hover { filter: brightness(1.1); transform: translateY(-3px); box-shadow: 0 30px 60px rgba(255, 215, 0, 0.3); }
+        
+        .safe-guide { margin-top: 35px; background: rgba(255,255,255,0.03); padding: 25px; border-radius: 16px; text-align: left; border: 1px solid var(--border); }
+        .safe-step { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; }
+        .step-badge { 
+            background: var(--gradient); 
+            width: 28px; height: 28px; border-radius: 50%; 
+            display: grid; place-items: center; 
+            font-size: 0.75rem; font-weight: 800; flex-shrink: 0; color: #000;
+        }
+        .safe-step span { color: var(--muted); font-size: 0.95rem; }
+
+        /* --- ROADMAP --- */
+        .roadmap-section { padding: 140px 0; }
+        .timeline { position: relative; margin-top: 80px; }
+        .timeline::before { content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 3px; height: 100%; background: rgba(255, 215, 0, 0.2); border-radius: 2px; }
+        .tl-item { display: flex; justify-content: flex-end; padding-right: 50%; position: relative; margin-bottom: 60px; }
+        .tl-item:nth-child(even) { justify-content: flex-start; padding-right: 0; padding-left: 50%; }
+        .tl-content { background: rgba(20, 20, 20, 0.8); border: 1px solid var(--border); padding: 30px; border-radius: 20px; width: 90%; max-width: 420px; backdrop-filter: blur(10px); transition: 0.3s; }
+        .tl-content:hover { border-color: var(--primary); transform: scale(1.02); }
+        .tl-dot { position: absolute; left: 50%; transform: translateX(-50%); width: 20px; height: 20px; background: var(--primary); border-radius: 50%; border: 4px solid var(--bg); box-shadow: var(--glow); }
+        .tl-year { color: var(--primary); font-weight: 800; font-size: 0.9rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 1px; }
+        .tl-content h4 { margin-bottom: 8px; font-size: 1.3rem; }
+        .tl-content p { color: var(--muted); font-size: 0.95rem; margin: 0; }
+
+        /* --- FOOTER --- */
+        footer { border-top: 1px solid var(--border); padding: 80px 0 40px; background: #020202; }
+        .f-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 50px; }
+        .f-brand p { color: var(--muted); font-size: 0.9rem; margin-top: 20px; line-height: 1.8; }
+        .f-links h5 { font-size: 1rem; margin-bottom: 25px; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        .f-links a { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 0.9rem; margin-bottom: 15px; transition: 0.3s; }
+        .f-links a:hover { color: var(--primary); padding-left: 5px; }
+        .f-links svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero-grid, .ref-content, .social-grid { grid-template-columns: 1fr; text-align: center; gap: 60px; }
+            .hero h1 { font-size: 3.5rem; }
+            .hero p { margin: 0 auto 40px; }
+            .hero-visual, .social-visual { order: -1; }
+            .mockup-container { transform: rotateY(0) rotateX(0); margin: 0 auto; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: 1fr; }
+            .timeline::before { left: 0; }
+            .tl-item, .tl-item:nth-child(even) { padding-left: 40px; padding-right: 0; justify-content: flex-start; }
+            .tl-dot { left: 0; }
+            .f-grid { grid-template-columns: 1fr 1fr; }
+            .social-icons-large { justify-content: center; }
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .f-grid { grid-template-columns: 1fr; text-align: center; }
+            .f-links a { justify-content: center; }
+            .section-header h2, .ref-text h2, .social-text h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <div class="logo-icon">⚡</div>
+                    <span>FITIA PRO</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#features">Fonctionnalités</a>
+                    <a href="#tokenomics">Tokenomics</a>
+                    <a href="#roadmap">Roadmap</a>
+                    <a href="#community">Communauté</a>
+                </div>
+                <a href="#join" class="btn btn-primary">Démarrer</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <span class="hero-badge">🚀 FITIA-PRO V2.0 LIVE</span>
+                    <h1>L'avenir du <span class="gradient-text">Mining</span> commence ici.</h1>
+                    <p>Oubliez le matériel coûteux. FITIA PRO vous permet de miner des tokens FTA, de jouer et d'échanger directement depuis votre portefeuille crypto.</p>
+                    <div style="display:flex; gap: 20px; flex-wrap:wrap; justify-content: flex-start;">
+                        <a href="#join" class="btn btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                            Obtenir mon lien
+                        </a>
+                        <a href="#features" class="btn btn-outline">En savoir plus</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="mockup-container">
+                        <div class="mockup-screen">
+                            <div class="mockup-header">
+                                <span>⚡ FITIA</span>
+                                <span style="color:var(--primary)">●</span>
+                            </div>
+                            <div style="text-align:center; margin-top:20px;">
+                                <div style="font-size:2.2rem; font-weight:800; color:var(--primary);">0.00580 <span style="font-size:1rem; color:var(--muted)">FTA/s</span></div>
+                                <div class="mockup-chart">
+                                    <div class="bar" style="height:40%"></div>
+                                    <div class="bar" style="height:70%"></div>
+                                    <div class="bar" style="height:50%"></div>
+                                    <div class="bar" style="height:90%"></div>
+                                    <div class="bar" style="height:60%"></div>
+                                    <div class="bar" style="height:80%"></div>
+                                    <div class="bar" style="height:30%"></div>
+                                    <div class="bar" style="height:95%"></div>
+                                </div>
+                                <div style="margin-top:20px; font-size:0.9rem; color:var(--muted)">Revenus générés</div>
+                            </div>
+                            <div class="mockup-btn">RÉCLAMER</div>
+                        </div>
+                    </div>
+                    <div class="floating-card fc-top">
+                        <span style="font-size:2rem">🎮</span>
+                        <div><div style="font-weight:700; font-size:0.95rem; color:white;">Game Rewards</div><div style="font-size:0.8rem; color:var(--primary)">+150% Bonus</div></div>
+                    </div>
+                    <div class="floating-card fc-bottom">
+                        <span style="font-size:2rem">💰</span>
+                        <div><div style="font-weight:700; font-size:0.95rem; color:white;">Swap Instant</div><div style="font-size:0.8rem; color:var(--primary)">FTA 💱 USDT</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>$2.5M+</h3>
+                    <p>Volume Total</p>
+                </div>
+                <div class="stat-item">
+                    <h3>15,000+</h3>
+                    <p>Utilisateurs</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1.2M</h3>
+                    <p>FTA Minés</p>
+                </div>
+                <div class="stat-item">
+                    <h3>0%</h3>
+                    <p>Frais Entrée</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tout ce dont vous avez <span class="gradient-text">besoin</span></h2>
+                <p>Un écosystème complet conçu pour générer de la valeur sur le long terme avec une sécurité maximale.</p>
+            </div>
+            <div class="features-grid">
+                <div class="glass-panel feature-card">
+                    <div class="f-icon">⛏️</div>
+                    <h3>Mining Décentralisé</h3>
+                    <p>Achetez des RIGs virtuels puissants. Vos tokens FTA sont générés en temps réel sur la blockchain.</p>
+                </div>
+                <div class="glass-panel feature-card">
+                    <div class="f-icon">🎮</div>
+                    <h3>Play to Earn</h3>
+                    <p>WinGo, Roue de la Fortune, Pêche. Jouez pour multiplier vos gains quotidiennement.</p>
+                </div>
+                <div class="glass-panel feature-card">
+                    <div class="f-icon">💱</div>
+                    <h3>Échange Instantané</h3>
+                    <p>Convertissez vos FTA en USDT d'un clic grâce à notre intégration DEX sécurisée.</p>
+                </div>
+                <div class="glass-panel feature-card">
+                    <div class="f-icon">👥</div>
+                    <h3>Parrainage 3 Niveaux</h3>
+                    <p>Gagnez des commissions passives sur vos amis et leurs réseaux respectifs.</p>
+                </div>
+                <div class="glass-panel feature-card">
+                    <div class="f-icon">🛡️</div>
+                    <h3>Sécurité Audité</h3>
+                    <p>Smart contracts vérifiés et audités sur la blockchain Polygon pour une sécurité totale.</p>
+                </div>
+                <div class="glass-panel feature-card">
+                    <div class="f-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Optimisé pour SafePal, Trust Wallet et MetaMask Mobile. Minez partout.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL COMMUNITY -->
+    <section id="community" class="social-section">
+        <div class="container">
+            <div class="social-grid">
+                <div class="social-text">
+                    <h2>Rejoignez la <span class="gradient-text">Communauté</span></h2>
+                    <p>Restez informé des dernières mises à jour, participez aux événements exclusifs et rejoignez le mouvement FITIA mondial.</p>
+                    
+                    <div class="social-icons-large">
+                        <!-- Twitter / X -->
+                        <a href="https://x.com/FITIAOfficiel" class="social-btn" title="Twitter">
+                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="#" class="social-btn" title="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://whatsapp.com/channel/0029Vb7RxRB8kyyQ0ZAv6u3G" class="social-btn" title="WhatsApp">
+                            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </a>
+                        <!-- TikTok -->
+                        <a href="https://www.tiktok.com/@fitiaofficiel?_r=1&_t=ZN-94Dse91O9yw" class="social-btn" title="TikTok">
+                            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.04 1.35.97 2.61 2.31 2.95 1.44.44 3.09-.24 3.85-1.53.26-.44.43-.95.43-1.46V.02z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="social-visual">
+                     <img src="https://i.ibb.co/d0BBSQfx/20260226-110028.webp" alt="Community" style="border-radius:24px; box-shadow:0 30px 60px rgba(0,0,0,0.6); transform:rotate(-3deg); border: 2px solid rgba(255,255,255,0.1);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFERRAL / JOIN -->
+    <section id="join" class="referral-section">
+        <div class="container">
+            <div class="ref-content">
+                <div class="ref-text">
+                    <h2>Rejoignez <span class="gradient-text">l'écosystème</span></h2>
+                    <p>Obtenez votre accès exclusif et commencez à miner dès aujourd'hui. Rejoignez les milliers d'utilisateurs qui gagnent quotidiennement.</p>
+                    
+                    <div class="copy-box">
+                        <span class="copy-icon">🔗</span>
+                        <div class="copy-title">Votre lien d'invitation est prêt</div>
+                        <div class="copy-desc">Cliquez ci-dessous pour copier automatiquement votre lien de parrainage.</div>
+                        <button class="btn-copy-full" onclick="copyRef()">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            Copier le lien
+                        </button>
+                        
+                        <div class="safe-guide">
+                            <div class="safe-step">
+                                <div class="step-badge">1</div>
+                                <span>Copiez le lien de parrainage</span>
+                            </div>
+                            <div class="safe-step">
+                                <div class="step-badge">2</div>
+                                <span>Ouvrez votre wallet SafePal</span>
+                            </div>
+                            <div class="safe-step">
+                                <div class="step-badge">3</div>
+                                <span>Collez dans le navigateur DApp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <img src="https://i.ibb.co/4Rqj3YfM/Tech-Lanes-JPG.webp" alt="Crypto Wallet" style="border-radius:24px; box-shadow:0 30px 60px rgba(0,0,0,0.6); transform:rotate(3deg); border: 2px solid rgba(255,255,255,0.1);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap" class="roadmap-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Roadmap</h2>
+                <p>Notre vision stratégique pour le futur de FITIA.</p>
+            </div>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div class="tl-content glass-panel">
+                        <span class="tl-year">Q4 2025</span>
+                        <h4>Lancement Officiel</h4>
+                        <p>Déploiement des contrats, création de la boutique, interface V1.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot" style="background:var(--accent); box-shadow: 0 0 20px rgba(255,165,0,0.5);"></div>
+                    <div class="tl-content glass-panel">
+                        <span class="tl-year" style="color:var(--accent)">Q1 2026 (Actuel)</span>
+                        <h4>Expansion Mondiale</h4>
+                        <p>Jeux visuels, Parrainage 3 niveaux, Intégration SafePal & TrustWallet.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div class="tl-content glass-panel">
+                        <span class="tl-year">Q3 2026</span>
+                        <h4>Innovation & NFT</h4>
+                        <p>NFT Mining Boosts, Staking Pools, Partenariats CEX majeurs.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div class="tl-content glass-panel">
+                        <span class="tl-year">Q1 2027</span>
+                        <h4>Metaverse & DAO</h4>
+                        <p>Intégration virtuelle, Marketplace P2P, Gouvernance communautaire.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="f-grid">
+                <div class="f-brand">
+                    <div class="logo"><div class="logo-icon">⚡</div><span>FITIA PRO</span></div>
+                    <p>L'avenir de la finance décentralisée. Sécurisé par la Blockchain Polygon. Rejoignez la révolution du mining mobile.</p>
+                </div>
+                <div class="f-links">
+                    <h5>Produit</h5>
+                    <a href="#">Mining</a>
+                    <a href="#">Games</a>
+                    <a href="#">Swap</a>
+                </div>
+                <div class="f-links">
+                    <h5>Ressources</h5>
+                    <a href="#">Documentation</a>
+                    <a href="#">Contrat</a>
+                    <a href="#">Aide</a>
+                </div>
+                <div class="f-links">
+                    <h5>Social</h5>
+                    <a href="#">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" fill="currentColor"/></svg>
+                        Telegram
+                    </a>
+                    <a href="https://x.com/FITIAOfficiel">
+                        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/></svg>
+                        Twitter
+                    </a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 80px; padding-top: 30px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem;">
+                © 2024-2026 FITIA PRO. Tous droits réservés. | Blockchain Polygon
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sticky header with blur effect
+        window.onscroll = function() { 
+            if (window.scrollY > 50) document.getElementById('header').classList.add('scrolled');
+            else document.getElementById('header').classList.remove('scrolled');
+        };
+
+        // Referral Link Logic
+        const defaultRef = "0xBcD8a903f41157A269615725Ac66c8d9d0c8Cc90"; 
+        const baseUrl = "https://fitia-pro-mining.netlify.app/";
+
+        const refLink = `${baseUrl}?ref=${defaultRef}`;
+        
+        function copyRef() {
+            navigator.clipboard.writeText(refLink).then(() => {
+                const btn = document.querySelector('.btn-copy-full');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = "✅ Lien Copié avec Succès !";
+                btn.style.background = "#10b981";
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = "";
+                }, 2500);
+            });
+        }
+    </script>
+</body>
+</html>
