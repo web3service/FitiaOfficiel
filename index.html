@@ -2,10 +2,14 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ✅ Viewport optimisé mobile : empêche zoom, scale adaptatif -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="FITIA_TOKEN (FTA) – Cryptomonnaie 100% open source et décentralisée. Minez, échangez et possédez en toute sécurité.">
     <meta name="keywords" content="FITIA_TOKEN, FTA, crypto, minage, blockchain, Polygon, open source, décentralisé, airdrop">
     <meta name="author" content="FITIA_TOKEN Team">
+    <meta name="theme-color" content="#0A0E17">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -16,6 +20,7 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪙</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪙</text></svg>">
     
     <title data-i18n="pageTitle">FITIA_TOKEN (FTA) – Miner. Échanger. Posséder. Découvrir.</title>
     
@@ -30,9 +35,7 @@
     <!-- EmailJS pour le formulaire de contact -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function() {
-            emailjs.init("8klKS_8z9yjKJZigH");
-        })();
+        (function() { emailjs.init("8klKS_8z9yjKJZigH"); })();
     </script>
     
     <style>
@@ -49,44 +52,66 @@
             --gradient-dark: linear-gradient(135deg, #0A0E17 0%, #1B263B 100%);
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             --shadow-gold: 0 10px 40px rgba(245, 197, 24, 0.2);
+            /* ✅ Variables mobiles */
+            --touch-target: 44px;
+            --mobile-padding: 1rem;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        /* ✅ Reset mobile-friendly */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--dark);
             color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
+            /* ✅ Empêche le scroll horizontal accidentel */
+            position: relative;
+            min-height: 100vh;
         }
+        
+        /* ✅ Typographie adaptative mobile */
+        h1 { font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.1; }
+        h2 { font-size: clamp(1.5rem, 6vw, 2.5rem); }
+        h3 { font-size: clamp(1.2rem, 5vw, 1.8rem); }
+        p { font-size: clamp(0.9rem, 4vw, 1.25rem); }
+        
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
+            margin-bottom: 0.5em;
         }
+        
         a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
         
-        /* Language Switcher */
+        /* ✅ Language Switcher mobile */
         .lang-switcher {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 12px;
+            right: 12px;
             z-index: 1001;
             display: flex;
-            gap: 0.5rem;
-            background: rgba(10, 14, 23, 0.9);
-            padding: 0.5rem;
-            border-radius: 8px;
+            gap: 0.25rem;
+            background: rgba(10, 14, 23, 0.95);
+            padding: 0.25rem;
+            border-radius: 6px;
             border: 1px solid rgba(245, 197, 24, 0.2);
         }
         .lang-btn {
-            padding: 0.4rem 0.8rem;
+            padding: 0.3rem 0.6rem;
+            min-height: var(--touch-target);
+            min-width: var(--touch-target);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border: none;
             background: transparent;
             color: var(--gray);
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 4px;
             font-weight: 600;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
         }
         .lang-btn:hover, .lang-btn.active {
@@ -94,28 +119,28 @@
             color: var(--dark);
         }
         
-        /* Navigation */
+        /* ✅ Navigation mobile-first */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 14, 23, 0.95);
+            background: rgba(10, 14, 23, 0.98);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 1rem 0;
+            padding: 0.75rem 0;
             border-bottom: 1px solid rgba(245, 197, 24, 0.1);
         }
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 var(--mobile-padding);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .logo {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
             font-weight: 700;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
@@ -123,477 +148,319 @@
             background-clip: text;
         }
         .nav-links {
-            display: flex;
-            gap: 2rem;
+            display: none; /* Mobile first: hidden by default */
+            flex-direction: column;
+            gap: 0;
             list-style: none;
-            align-items: center;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--dark);
+            padding: 1rem;
+            border-bottom: 1px solid rgba(245, 197, 24, 0.1);
+            box-shadow: var(--shadow);
         }
+        .nav-links.active { display: flex; }
         .nav-links a {
             color: var(--light);
             font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
+            padding: 0.8rem 1rem;
+            min-height: var(--touch-target);
+            display: flex;
+            align-items: center;
+            border-radius: 6px;
         }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:active { background: rgba(245, 197, 24, 0.1); }
         
         .mobile-menu {
-            display: none;
+            display: flex;
             font-size: 1.5rem;
             cursor: pointer;
+            min-height: var(--touch-target);
+            min-width: var(--touch-target);
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
         }
+        .mobile-menu:active { background: rgba(245, 197, 24, 0.1); }
         
-        /* Hero Section */
+        /* ✅ Hero Section mobile */
         .hero {
-            margin-top: 80px;
-            padding: 6rem 2rem;
+            margin-top: 70px;
+            padding: 3rem var(--mobile-padding);
             background: var(--gradient-dark);
             position: relative;
             overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url("image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F5C518' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
         }
         .hero-container {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-        }
-        .hero-content h1 span {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-content p {
-            font-size: 1.25rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
-        }
-        .hero-stats {
-            display: flex;
+            grid-template-columns: 1fr;
             gap: 2rem;
-            margin: 3rem 0;
+            align-items: center;
         }
-        .stat { text-align: center; }
+        .hero-content h1 { margin-bottom: 1rem; }
+        .hero-content p { margin-bottom: 1.5rem; color: var(--gray); }
+        
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        .stat { text-align: center; padding: 0.5rem; }
         .stat-number {
-            font-size: 2.5rem;
+            font-size: clamp(1.2rem, 5vw, 2.5rem);
             font-weight: 700;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .stat-label { color: var(--gray); font-size: 0.9rem; }
+        .stat-label { color: var(--gray); font-size: 0.75rem; }
         
+        /* ✅ Boutons tactiles optimisés */
         .cta-buttons {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 300px;
         }
         .btn {
-            padding: 1rem 2rem;
-            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            min-height: var(--touch-target);
+            border-radius: 10px;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             border: none;
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
+            width: 100%;
+            text-align: center;
         }
+        .btn:active { transform: scale(0.98); }
         .btn-primary {
             background: var(--gradient-primary);
             color: var(--dark);
             box-shadow: var(--shadow-gold);
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(245, 197, 24, 0.3);
         }
         .btn-secondary {
             background: transparent;
             color: var(--light);
             border: 2px solid var(--primary);
         }
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: var(--dark);
-        }
         .btn-whitepaper {
             background: var(--dark-gray);
             color: var(--light);
             border: 2px solid var(--secondary);
         }
-        .btn-whitepaper:hover {
-            background: var(--secondary);
-            color: var(--dark);
-        }
         
-        .hero-visual { position: relative; }
-        .hero-image {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        /* Countdown Section */
-        .countdown-section {
-            background: var(--darker);
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-        .countdown-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--primary);
-        }
-        .countdown {
+        .hero-visual {
+            position: relative;
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin: 3rem 0;
-            flex-wrap: wrap;
+        }
+        .hero-visual > div {
+            width: 100%;
+            max-width: 350px;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            background: linear-gradient(135deg, #F5C518 0%, #00D17A 100%);
+        }
+        .hero-visual i { font-size: clamp(4rem, 15vw, 8rem); color: white; }
+        
+        /* ✅ Countdown mobile */
+        .countdown-section {
+            background: var(--darker);
+            padding: 2rem var(--mobile-padding);
+            text-align: center;
+        }
+        .countdown-title { font-size: clamp(1.3rem, 5vw, 2rem); margin-bottom: 1.5rem; }
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin: 1.5rem 0;
         }
         .countdown-item {
             background: var(--dark-gray);
-            padding: 2rem;
-            border-radius: 15px;
-            min-width: 120px;
+            padding: 1rem 0.5rem;
+            border-radius: 10px;
             border: 2px solid rgba(245, 197, 24, 0.2);
         }
         .countdown-value {
-            font-size: 3rem;
+            font-size: clamp(1.5rem, 8vw, 3rem);
             font-weight: 700;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .countdown-label { color: var(--gray); margin-top: 0.5rem; }
+        .countdown-label { color: var(--gray); font-size: 0.7rem; margin-top: 0.25rem; }
         
-        /* Section Styles */
-        section { padding: 6rem 2rem; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .section-header p {
-            color: var(--gray);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        /* ✅ Sections générales */
+        section { padding: 3rem var(--mobile-padding); }
+        .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        .section-header { text-align: center; margin-bottom: 2.5rem; }
+        .section-header p { color: var(--gray); max-width: 100%; }
         
-        /* Features */
+        /* ✅ Features Grid mobile */
         .features { background: var(--darker); }
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: 1fr;
+            gap: 1rem;
         }
         .feature-card {
             background: var(--dark-gray);
-            padding: 2.5rem;
-            border-radius: 15px;
+            padding: 1.5rem;
+            border-radius: 12px;
             border: 1px solid rgba(245, 197, 24, 0.1);
-            transition: all 0.3s ease;
         }
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow-gold);
-        }
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-        .feature-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-        .feature-card p { color: var(--gray); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; color: var(--primary); }
         
-        /* Whitepaper Banner */
+        /* ✅ Whitepaper Banner mobile */
         .whitepaper-banner {
             background: linear-gradient(135deg, var(--dark-gray) 0%, var(--dark) 100%);
             border: 2px solid var(--secondary);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 3rem 0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
             gap: 1rem;
+            text-align: center;
         }
-        .whitepaper-banner i {
-            font-size: 2.5rem;
-            color: var(--secondary);
-        }
-        .whitepaper-banner-text h4 {
-            color: var(--primary);
-            margin-bottom: 0.3rem;
-        }
-        .whitepaper-banner-text p {
-            color: var(--gray);
-            font-size: 0.95rem;
-        }
-        .whitepaper-banner .btn {
-            padding: 0.8rem 1.5rem;
-            font-size: 0.95rem;
-        }
+        .whitepaper-banner i { font-size: 2rem; color: var(--secondary); }
+        .whitepaper-banner-text h4 { color: var(--primary); margin-bottom: 0.25rem; font-size: 1.1rem; }
+        .whitepaper-banner-text p { color: var(--gray); font-size: 0.9rem; }
         
-        /* Airdrop Section */
-        .airdrop {
-            background: var(--gradient-dark);
-            position: relative;
-            overflow: hidden;
-        }
-        .airdrop::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(245, 197, 24, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        .airdrop-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        .airdrop-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .airdrop-content h2 span {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .airdrop-steps { margin: 2rem 0; }
+        /* ✅ Airdrop Section mobile */
+        .airdrop { background: var(--gradient-dark); }
+        .airdrop-container { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        .airdrop-steps { margin: 1.5rem 0; }
         .step {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
             align-items: flex-start;
         }
         .step-number {
             background: var(--gradient-primary);
             color: var(--dark);
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
+            font-size: 0.9rem;
             flex-shrink: 0;
         }
-        .step-content h4 { margin-bottom: 0.5rem; }
-        .step-content p { color: var(--gray); font-size: 0.95rem; }
+        .step-content h4 { margin-bottom: 0.25rem; font-size: 1rem; }
+        .step-content p { color: var(--gray); font-size: 0.85rem; }
         
         .airdrop-visual {
             background: var(--dark-gray);
-            padding: 3rem;
-            border-radius: 20px;
+            padding: 2rem;
+            border-radius: 16px;
             border: 2px solid var(--primary);
             text-align: center;
         }
-        .airdrop-amount {
-            font-size: 4rem;
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 1rem 0;
-        }
+        .airdrop-amount { font-size: clamp(2rem, 10vw, 4rem); font-weight: 700; }
         
-        /* Mining Section */
-        .mining-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
+        /* ✅ Mining Cards mobile */
+        .mining-cards { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         .mining-card {
             background: var(--dark-gray);
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
             border: 1px solid rgba(245, 197, 24, 0.1);
-            transition: all 0.3s ease;
-        }
-        .mining-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-gold);
         }
         .mining-card-header {
             background: var(--gradient-dark);
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
         }
-        .mining-card-header h3 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-        .mining-card-body { padding: 2rem; }
-        .mining-specs { list-style: none; margin: 1.5rem 0; }
+        .mining-card-body { padding: 1.5rem; }
+        .mining-specs { list-style: none; margin: 1rem 0; }
         .mining-specs li {
-            padding: 0.75rem 0;
+            padding: 0.5rem 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: space-between;
+            font-size: 0.9rem;
         }
-        .mining-specs li:last-child { border-bottom: none; }
         .spec-label { color: var(--gray); }
         .spec-value { font-weight: 600; color: var(--secondary); }
         
-        /* Tokenomics */
+        /* ✅ Tokenomics mobile */
         .tokenomics { background: var(--darker); }
         .tokenomics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
         .tokenomics-card {
             background: var(--dark-gray);
-            padding: 2rem;
-            border-radius: 15px;
+            padding: 1.5rem;
+            border-radius: 12px;
             text-align: center;
             border: 1px solid rgba(245, 197, 24, 0.1);
         }
         .tokenomics-percentage {
-            font-size: 2.5rem;
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
             font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 1rem 0;
         }
         
-        /* Roadmap */
-        .roadmap-timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .roadmap-timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 100%;
-            background: var(--primary);
-        }
-        .roadmap-item {
-            margin-bottom: 3rem;
-            position: relative;
-            width: 50%;
-            padding: 0 2rem;
-        }
-        .roadmap-item:nth-child(odd) { left: 0; text-align: right; }
-        .roadmap-item:nth-child(even) { left: 50%; }
-        .roadmap-item::before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: var(--primary);
-            border-radius: 50%;
-            top: 0;
-        }
-        .roadmap-item:nth-child(odd)::before { right: -10px; }
-        .roadmap-item:nth-child(even)::before { left: -10px; }
-        .roadmap-item h3 { color: var(--primary); margin-bottom: 0.5rem; }
-        
-        /* Contact Section */
+        /* ✅ Contact Section mobile */
         .contact { background: var(--darker); }
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .contact-info h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-        .contact-details { margin: 2rem 0; }
+        .contact-container { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        .contact-info h3 { font-size: 1.5rem; margin-bottom: 1rem; }
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
         }
-        .contact-item i {
-            font-size: 1.5rem;
-            color: var(--primary);
-            width: 40px;
-        }
+        .contact-item i { font-size: 1.2rem; color: var(--primary); width: 32px; }
+        
         .contact-form {
             background: var(--dark-gray);
-            padding: 2.5rem;
-            border-radius: 20px;
+            padding: 1.5rem;
+            border-radius: 16px;
             border: 1px solid rgba(245, 197, 24, 0.1);
         }
-        .form-group { margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1rem; }
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             font-weight: 500;
+            font-size: 0.95rem;
         }
+        /* ✅ Inputs optimisés mobile */
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 0.8rem 1rem;
+            padding: 0.9rem 1rem;
+            min-height: var(--touch-target);
             border: 1px solid rgba(245, 197, 24, 0.2);
             border-radius: 8px;
             background: var(--dark);
             color: var(--light);
             font-family: inherit;
+            font-size: 1rem; /* ✅ Empêche le zoom sur iOS */
             transition: all 0.3s ease;
         }
         .form-group input:focus,
@@ -602,169 +469,196 @@
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.1);
         }
-        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        
         .submit-btn {
             width: 100%;
             padding: 1rem;
+            min-height: var(--touch-target);
             background: var(--gradient-primary);
             color: var(--dark);
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-gold);
-        }
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
+        .submit-btn:active { transform: scale(0.98); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
         .form-status {
             margin-top: 1rem;
             padding: 1rem;
             border-radius: 8px;
             display: none;
+            font-size: 0.9rem;
         }
         .form-status.success {
-            background: rgba(0, 209, 122, 0.1);
+            background: rgba(0, 209, 122, 0.15);
             border: 1px solid var(--secondary);
             color: var(--secondary);
             display: block;
         }
         .form-status.error {
-            background: rgba(255, 107, 107, 0.1);
+            background: rgba(255, 107, 107, 0.15);
             border: 1px solid #FF6B6B;
             color: #FF6B6B;
             display: block;
         }
         
-        /* FAQ */
+        /* ✅ FAQ mobile */
         .faq-item {
             background: var(--dark-gray);
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             border-radius: 10px;
             overflow: hidden;
             border: 1px solid rgba(245, 197, 24, 0.1);
         }
         .faq-question {
-            padding: 1.5rem;
+            padding: 1rem;
+            min-height: var(--touch-target);
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 600;
+            font-size: 0.95rem;
         }
-        .faq-question:hover { background: rgba(245, 197, 24, 0.05); }
         .faq-answer {
-            padding: 0 1.5rem;
+            padding: 0 1rem;
             max-height: 0;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: max-height 0.3s ease, padding 0.3s ease;
             color: var(--gray);
+            font-size: 0.9rem;
         }
         .faq-item.active .faq-answer {
-            padding: 0 1.5rem 1.5rem;
+            padding: 0 1rem 1rem;
             max-height: 500px;
         }
-        .faq-item.active .faq-icon { transform: rotate(180deg); }
         
-        /* Footer */
+        /* ✅ Footer mobile */
         footer {
             background: var(--darker);
-            padding: 4rem 2rem 2rem;
+            padding: 3rem var(--mobile-padding) 2rem;
             border-top: 1px solid rgba(245, 197, 24, 0.1);
         }
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
-        .footer-section h3 { color: var(--primary); margin-bottom: 1.5rem; }
+        .footer-section h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.2rem; }
         .footer-section ul { list-style: none; }
-        .footer-section ul li { margin-bottom: 0.75rem; }
+        .footer-section ul li { margin-bottom: 0.5rem; font-size: 0.9rem; }
         .footer-section a { color: var(--gray); }
-        .footer-section a:hover { color: var(--primary); }
         
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 0.75rem;
             margin-top: 1rem;
+            flex-wrap: wrap;
         }
         .social-links a {
             width: 40px;
             height: 40px;
+            min-width: var(--touch-target);
+            min-height: var(--touch-target);
             border-radius: 50%;
             background: var(--dark-gray);
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid rgba(245, 197, 24, 0.2);
-        }
-        .social-links a:hover {
-            background: var(--primary);
-            color: var(--dark);
-            transform: translateY(-3px);
+            font-size: 1.1rem;
         }
         
         .footer-bottom {
             text-align: center;
-            padding-top: 2rem;
+            padding-top: 1.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
         .disclaimer {
             background: rgba(255, 107, 107, 0.1);
             border: 1px solid rgba(255, 107, 107, 0.3);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-top: 2rem;
-            font-size: 0.85rem;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
             color: var(--gray);
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .lang-switcher { right: 15px; top: 15px; }
-            .nav-links { display: none; }
-            .mobile-menu { display: block; }
-            .hero-container, .airdrop-container, .contact-container {
-                grid-template-columns: 1fr;
-            }
-            .hero-content h1 { font-size: 2.5rem; }
-            .hero-stats { justify-content: center; }
-            .countdown { gap: 1rem; }
-            .countdown-item { min-width: 80px; padding: 1rem; }
-            .countdown-value { font-size: 2rem; }
-            .roadmap-timeline::before { left: 20px; }
-            .roadmap-item {
-                width: 100%;
-                left: 0 !important;
-                padding-left: 60px;
-                text-align: left !important;
-            }
-            .roadmap-item::before { left: 10px !important; right: auto !important; }
-            .whitepaper-banner {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-        
-        /* Animations */
+        /* ✅ Animations */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
         }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        
+        /* ✅ MEDIA QUERIES – Responsive avancé */
+        
+        /* Tablettes et plus */
+        @media (min-width: 768px) {
+            :root { --mobile-padding: 2rem; }
+            .nav-links {
+                display: flex !important;
+                flex-direction: row;
+                position: static;
+                background: transparent;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+                gap: 1.5rem;
+            }
+            .nav-links a {
+                padding: 0.5rem 0;
+                min-height: auto;
+            }
+            .mobile-menu { display: none; }
+            .hero { padding: 5rem var(--mobile-padding); margin-top: 80px; }
+            .hero-container { grid-template-columns: 1fr 1fr; gap: 3rem; }
+            .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+            .cta-buttons {
+                flex-direction: row;
+                max-width: none;
+                flex-wrap: wrap;
+            }
+            .btn { width: auto; }
+            .countdown { gap: 1rem; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .airdrop-container { grid-template-columns: 1fr 1fr; }
+            .mining-cards { grid-template-columns: repeat(2, 1fr); }
+            .tokenomics-grid { grid-template-columns: repeat(3, 1fr); }
+            .contact-container { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .whitepaper-banner { flex-direction: row; text-align: left; justify-content: space-between; }
+        }
+        
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .features-grid { grid-template-columns: repeat(3, 1fr); }
+            .tokenomics-grid { grid-template-columns: repeat(6, 1fr); }
+            .footer-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        
+        /* ✅ Très petits écrans (320px) */
+        @media (max-width: 360px) {
+            .hero-stats { grid-template-columns: 1fr; }
+            .countdown { grid-template-columns: repeat(2, 1fr); }
+            .tokenomics-grid { grid-template-columns: 1fr; }
+            .stat-number { font-size: 1.8rem; }
+        }
+        
+        /* ✅ Mode paysage mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero { padding: 2rem var(--mobile-padding); }
+            .hero-container { gap: 1rem; }
+            section { padding: 2rem var(--mobile-padding); }
         }
     </style>
 </head>
@@ -772,25 +666,27 @@
 
     <!-- Language Switcher -->
     <div class="lang-switcher">
-        <button class="lang-btn active" onclick="changeLanguage('fr')">FR</button>
-        <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
-        <button class="lang-btn" onclick="changeLanguage('es')">ES</button>
-        <button class="lang-btn" onclick="changeLanguage('pt')">PT</button>
+        <button class="lang-btn active" onclick="changeLanguage('fr')" aria-label="Français">FR</button>
+        <button class="lang-btn" onclick="changeLanguage('en')" aria-label="English">EN</button>
+        <button class="lang-btn" onclick="changeLanguage('es')" aria-label="Español">ES</button>
+        <button class="lang-btn" onclick="changeLanguage('pt')" aria-label="Português">PT</button>
     </div>
 
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <div class="logo">🪙 FITIA_TOKEN</div>
-            <ul class="nav-links">
-                <li><a href="#accueil" data-i18n="nav.home">Accueil</a></li>
-                <li><a href="#apropos" data-i18n="nav.about">À propos</a></li>
-                <li><a href="#airdrop" data-i18n="nav.airdrop">Airdrop</a></li>
-                <li><a href="#minage" data-i18n="nav.mining">Minage</a></li>
-                <li><a href="#tokenomics" data-i18n="nav.tokenomics">Tokenomics</a></li>
-                <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil" data-i18n="nav.home" onclick="closeMenu()">Accueil</a></li>
+                <li><a href="#apropos" data-i18n="nav.about" onclick="closeMenu()">À propos</a></li>
+                <li><a href="#airdrop" data-i18n="nav.airdrop" onclick="closeMenu()">Airdrop</a></li>
+                <li><a href="#minage" data-i18n="nav.mining" onclick="closeMenu()">Minage</a></li>
+                <li><a href="#tokenomics" data-i18n="nav.tokenomics" onclick="closeMenu()">Tokenomics</a></li>
+                <li><a href="#contact" data-i18n="nav.contact" onclick="closeMenu()">Contact</a></li>
             </ul>
-            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+            <div class="mobile-menu" id="mobileMenu" onclick="toggleMenu()" aria-label="Menu" role="button" tabindex="0">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </nav>
 
@@ -817,22 +713,22 @@
                 </div>
                 
                 <div class="cta-buttons">
-                    <a href="https://youtube.com/shorts/0MPYUbBldjU?si=loOwNBHAGcDc67tT" class="btn btn-primary" target="_blank">
+                    <a href="https://youtube.com/shorts/0MPYUbBldjU?si=loOwNBHAGcDc67tT" class="btn btn-primary" target="_blank" rel="noopener">
                         <i class="fab fa-youtube"></i> Voir la Vidéo
                     </a>
-                    <a href="https://www.tiktok.com/@fitiaofficial?_r=1&_t=ZN-967Gjc8YC3y" class="btn btn-secondary" target="_blank">
-                        <i class="fab fa-tiktok"></i> Suivre sur TikTok
+                    <a href="https://www.tiktok.com/@fitiaofficial?_r=1&_t=ZN-967Gjc8YC3y" class="btn btn-secondary" target="_blank" rel="noopener">
+                        <i class="fab fa-tiktok"></i> TikTok
                     </a>
-                    <a href="https://chat.whatsapp.com/BDsvPCB6xp8H8X0YaRmPFP" class="btn btn-secondary" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Groupe WhatsApp
+                    <a href="https://chat.whatsapp.com/BDsvPCB6xp8H8X0YaRmPFP" class="btn btn-secondary" target="_blank" rel="noopener">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
                     </a>
                 </div>
             </div>
             <div class="hero-visual">
-                <div style="background: linear-gradient(135deg, #F5C518 0%, #00D17A 100%); padding: 3rem; border-radius: 20px; text-align: center;">
-                    <i class="fas fa-coins" style="font-size: 8rem; color: white;"></i>
-                    <h3 style="margin-top: 2rem; font-size: 2rem;">FITIA_TOKEN</h3>
-                    <p style="color: rgba(255,255,255,0.9);" data-i18n="hero.visual.subtitle">L'avenir du minage décentralisé</p>
+                <div>
+                    <i class="fas fa-coins"></i>
+                    <h3 style="margin-top: 1rem; font-size: 1.5rem;">FITIA_TOKEN</h3>
+                    <p style="color: rgba(255,255,255,0.95);" data-i18n="hero.visual.subtitle">L'avenir du minage décentralisé</p>
                 </div>
             </div>
         </div>
@@ -841,26 +737,26 @@
     <!-- Countdown Section -->
     <section class="countdown-section">
         <div class="container">
-            <h2 class="countdown-title" data-i18n="countdown.title">🚀 Lancement Officiel dans</h2>
+            <h2 class="countdown-title" data-i18n="countdown.title">🚀 Lancement dans</h2>
             <div class="countdown" id="countdown">
                 <div class="countdown-item">
                     <div class="countdown-value" id="days">00</div>
-                    <div class="countdown-label" data-i18n="countdown.days">Jours</div>
+                    <div class="countdown-label" data-i18n="countdown.days">J</div>
                 </div>
                 <div class="countdown-item">
                     <div class="countdown-value" id="hours">00</div>
-                    <div class="countdown-label" data-i18n="countdown.hours">Heures</div>
+                    <div class="countdown-label" data-i18n="countdown.hours">H</div>
                 </div>
                 <div class="countdown-item">
                     <div class="countdown-value" id="minutes">00</div>
-                    <div class="countdown-label" data-i18n="countdown.minutes">Minutes</div>
+                    <div class="countdown-label" data-i18n="countdown.minutes">M</div>
                 </div>
                 <div class="countdown-item">
                     <div class="countdown-value" id="seconds">00</div>
-                    <div class="countdown-label" data-i18n="countdown.seconds">Secondes</div>
+                    <div class="countdown-label" data-i18n="countdown.seconds">S</div>
                 </div>
             </div>
-            <p style="color: var(--gray); font-size: 1.2rem;" data-i18n="countdown.date">Le 8 Mai 2026 – Soyez prêt !</p>
+            <p style="color: var(--gray); font-size: 0.95rem;" data-i18n="countdown.date">8 Mai 2026</p>
         </div>
     </section>
 
@@ -868,21 +764,21 @@
     <section class="features" id="apropos">
         <div class="container">
             <div class="section-header">
-                <h2 data-i18n="features.title">Pourquoi Choisir FITIA_TOKEN ?</h2>
-                <p data-i18n="features.subtitle">Une cryptomonnaie conçue pour la communauté, par la communauté</p>
+                <h2 data-i18n="features.title">Pourquoi FITIA_TOKEN ?</h2>
+                <p data-i18n="features.subtitle">Conçu pour la communauté</p>
             </div>
             
             <!-- Whitepaper Banner -->
             <div class="whitepaper-banner fade-in">
-                <div style="display: flex; align-items: center; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
                     <i class="fas fa-file-pdf"></i>
                     <div class="whitepaper-banner-text">
-                        <h4>📄 Whitepaper FITIA_TOKEN</h4>
-                        <p>Document technique complet – Version Française</p>
+                        <h4>📄 Whitepaper FITIA</h4>
+                        <p>Version Française</p>
                     </div>
                 </div>
-                <a href="./whitepaper-fitia-fr.pdf" class="btn btn-whitepaper" target="_blank" download>
-                    <i class="fas fa-download"></i> Télécharger le PDF
+                <a href="./whitepaper-fitia-fr.pdf" class="btn btn-whitepaper" target="_blank" download rel="noopener">
+                    <i class="fas fa-download"></i> Télécharger
                 </a>
             </div>
             
@@ -890,32 +786,32 @@
                 <div class="feature-card fade-in">
                     <div class="feature-icon"><i class="fas fa-code"></i></div>
                     <h3 data-i18n="features.card1.title">100% Open Source</h3>
-                    <p data-i18n="features.card1.desc">Code auditable et transparent. Contribuez, vérifiez, participez au développement de FTA.</p>
+                    <p data-i18n="features.card1.desc">Code auditable et transparent.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3 data-i18n="features.card2.title">Décentralisé & Sécurisé</h3>
-                    <p data-i18n="features.card2.desc">Aucun contrôle central. Vos actifs vous appartiennent. Smart contracts audités.</p>
+                    <h3 data-i18n="features.card2.title">Décentralisé</h3>
+                    <p data-i18n="features.card2.desc">Vos actifs vous appartiennent.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon"><i class="fas fa-microchip"></i></div>
                     <h3 data-i18n="features.card3.title">Minage Accessible</h3>
-                    <p data-i18n="features.card3.desc">Machines et batteries optimisées pour un minage rentable, même pour les débutants.</p>
+                    <p data-i18n="features.card3.desc">Machines optimisées pour tous.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon"><i class="fas fa-exchange-alt"></i></div>
                     <h3 data-i18n="features.card4.title">Échange 24/7</h3>
-                    <p data-i18n="features.card4.desc">Achetez, vendez, transférez vos FTA à tout moment, en toute sécurité, sans intermédiaire.</p>
+                    <p data-i18n="features.card4.desc">Sécurisé, sans intermédiaire.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon"><i class="fas fa-users"></i></div>
-                    <h3 data-i18n="features.card5.title">Communauté Active</h3>
-                    <p data-i18n="features.card5.desc">Rejoignez une communauté passionnée. Participez à la gouvernance DAO.</p>
+                    <h3 data-i18n="features.card5.title">Communauté</h3>
+                    <p data-i18n="features.card5.desc">Gouvernance DAO participative.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon"><i class="fas fa-leaf"></i></div>
                     <h3 data-i18n="features.card6.title">Éco-Responsable</h3>
-                    <p data-i18n="features.card6.desc">Consommation énergétique optimisée. Batteries pour un minage durable.</p>
+                    <p data-i18n="features.card6.desc">Consommation optimisée.</p>
                 </div>
             </div>
         </div>
@@ -926,59 +822,58 @@
         <div class="container">
             <div class="airdrop-container">
                 <div class="airdrop-content">
-                    <h2 data-i18n="airdrop.title">🎁 Airdrop <span>1 000 000 FTA</span></h2>
-                    <p style="color: var(--gray); margin-bottom: 2rem;" data-i18n="airdrop.subtitle">Participez gratuitement et recevez vos tokens FTA avant le lancement officiel.</p>
+                    <h2 data-i18n="airdrop.title">🎁 Airdrop <span>1M FTA</span></h2>
+                    <p style="color: var(--gray); margin-bottom: 1.5rem;" data-i18n="airdrop.subtitle">Participez gratuitement !</p>
                     
                     <div class="airdrop-steps">
                         <div class="step">
                             <div class="step-number">1</div>
                             <div class="step-content">
                                 <h4 data-i18n="airdrop.step1.title">Abonnez-vous</h4>
-                                <p data-i18n="airdrop.step1.desc">Suivez @FitiaOfficial sur TikTok et YouTube</p>
+                                <p data-i18n="airdrop.step1.desc">TikTok + YouTube @FitiaOfficial</p>
                             </div>
                         </div>
                         <div class="step">
                             <div class="step-number">2</div>
                             <div class="step-content">
                                 <h4 data-i18n="airdrop.step2.title">Likez & Partagez</h4>
-                                <p data-i18n="airdrop.step2.desc">Aimez la vidéo officielle et partagez-la à 10 personnes</p>
+                                <p data-i18n="airdrop.step2.desc">Partagez à 10 personnes</p>
                             </div>
                         </div>
                         <div class="step">
                             <div class="step-number">3</div>
                             <div class="step-content">
                                 <h4 data-i18n="airdrop.step3.title">Commentez</h4>
-                                <p data-i18n="airdrop.step3.desc">Déposez votre adresse wallet POL (Polygon) en commentaire</p>
+                                <p data-i18n="airdrop.step3.desc">Votre adresse wallet POL</p>
                             </div>
                         </div>
                         <div class="step">
                             <div class="step-number">4</div>
                             <div class="step-content">
-                                <h4 data-i18n="airdrop.step4.title">Envoyez la preuve</h4>
-                                <p data-i18n="airdrop.step4.desc">Partagez vos captures d'écran dans le groupe WhatsApp officiel</p>
+                                <h4 data-i18n="airdrop.step4.title">Preuve WhatsApp</h4>
+                                <p data-i18n="airdrop.step4.desc">Envoyez les screenshots</p>
                             </div>
                         </div>
                     </div>
                     
                     <div class="cta-buttons">
-                        <a href="https://youtube.com/shorts/0MPYUbBldjU?si=loOwNBHAGcDc67tT" class="btn btn-primary" target="_blank">
-                            <i class="fab fa-youtube"></i> Voir la Vidéo
+                        <a href="https://youtube.com/shorts/0MPYUbBldjU?si=loOwNBHAGcDc67tT" class="btn btn-primary" target="_blank" rel="noopener">
+                            <i class="fab fa-youtube"></i> Vidéo
                         </a>
-                        <a href="https://vm.tiktok.com/ZNRpCpQ5v/" class="btn btn-secondary" target="_blank">
-                            <i class="fab fa-tiktok"></i> Voir la Vidéo
+                        <a href="https://vm.tiktok.com/ZNRpCpQ5v/" class="btn btn-secondary" target="_blank" rel="noopener">
+                            <i class="fab fa-tiktok"></i> TikTok
                         </a>
-                        <a href="https://chat.whatsapp.com/BDsvPCB6xp8H8X0YaRmPFP" class="btn btn-secondary" target="_blank">
-                            <i class="fab fa-whatsapp"></i> Groupe WhatsApp
+                        <a href="https://chat.whatsapp.com/BDsvPCB6xp8H8X0YaRmPFP" class="btn btn-secondary" target="_blank" rel="noopener">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
                         </a>
                     </div>
                 </div>
                 <div class="airdrop-visual">
-                    <i class="fas fa-gift" style="font-size: 4rem; color: var(--primary);"></i>
+                    <i class="fas fa-gift" style="font-size: 3rem; color: var(--primary);"></i>
                     <div class="airdrop-amount">1 000 000</div>
-                    <p style="color: var(--gray); margin-bottom: 2rem;" data-i18n="airdrop.visual.share">FTA à partager</p>
-                    <div style="background: var(--dark); padding: 1.5rem; border-radius: 10px;">
-                        <p style="color: var(--primary); font-weight: 600;">1 FTA = 0.0125 $</p>
-                        <p style="color: var(--gray); font-size: 0.9rem; margin-top: 0.5rem;" data-i18n="airdrop.visual.value">Valeur totale : $12,500 USD</p>
+                    <p style="color: var(--gray); margin: 1rem 0;" data-i18n="airdrop.visual.share">FTA à partager</p>
+                    <div style="background: var(--dark); padding: 1rem; border-radius: 8px;">
+                        <p style="color: var(--primary); font-weight: 600; font-size: 0.95rem;">1 FTA = 0.0125 $</p>
                     </div>
                 </div>
             </div>
@@ -989,42 +884,40 @@
     <section class="mining" id="minage">
         <div class="container">
             <div class="section-header">
-                <h2 data-i18n="mining.title">Équipements de Minage</h2>
-                <p data-i18n="mining.subtitle">Des machines optimisées pour maximiser vos récompenses FTA</p>
+                <h2 data-i18n="mining.title">Équipements</h2>
+                <p data-i18n="mining.subtitle">Optimisés pour maximiser vos gains</p>
             </div>
             <div class="mining-cards">
                 <div class="mining-card fade-in">
                     <div class="mining-card-header">
-                        <i class="fas fa-server" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                        <i class="fas fa-server" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;"></i>
                         <h3 data-i18n="mining.card1.title">Machine FTA Pro</h3>
-                        <p style="color: var(--gray);" data-i18n="mining.card1.subtitle">Pour mineurs exigeants</p>
                     </div>
                     <div class="mining-card-body">
                         <ul class="mining-specs">
-                            <li><span class="spec-label" data-i18n="mining.specs.hashrate">Hashrate</span><span class="spec-value">500 MH/s</span></li>
-                            <li><span class="spec-label" data-i18n="mining.specs.power">Consommation</span><span class="spec-value">800W</span></li>
-                            <li><span class="spec-label" data-i18n="mining.specs.noise">Bruit</span><span class="spec-value">&lt; 45 dB</span></li>
-                            <li><span class="spec-label" data-i18n="mining.specs.warranty">Garantie</span><span class="spec-value" data-i18n="mining.specs.years2">2 ans</span></li>
+                            <li><span class="spec-label">Hashrate</span><span class="spec-value">500 MH/s</span></li>
+                            <li><span class="spec-label">Consommation</span><span class="spec-value">800W</span></li>
+                            <li><span class="spec-label">Bruit</span><span class="spec-value">&lt; 45 dB</span></li>
+                            <li><span class="spec-label">Garantie</span><span class="spec-value">2 ans</span></li>
                         </ul>
-                        <button class="btn btn-primary" style="width: 100%;" data-i18n="mining.order">
+                        <button class="btn btn-primary">
                             <i class="fas fa-shopping-cart"></i> Commander
                         </button>
                     </div>
                 </div>
                 <div class="mining-card fade-in">
                     <div class="mining-card-header">
-                        <i class="fas fa-battery-full" style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                        <i class="fas fa-battery-full" style="font-size: 2rem; color: var(--secondary); margin-bottom: 0.5rem;"></i>
                         <h3 data-i18n="mining.card2.title">Batterie FTA Energy</h3>
-                        <p style="color: var(--gray);" data-i18n="mining.card2.subtitle">Autonomie et stabilité</p>
                     </div>
                     <div class="mining-card-body">
                         <ul class="mining-specs">
-                            <li><span class="spec-label" data-i18n="mining.specs.capacity">Capacité</span><span class="spec-value">5000 Wh</span></li>
-                            <li><span class="spec-label" data-i18n="mining.specs.autonomy">Autonomie</span><span class="spec-value">8-12h</span></li>
-                            <li><span class="spec-label" data-i18n="mining.specs.charging">Recharge</span><span class="spec-value" data-i18n="mining.specs.fast">Rapide USB-C</span></li>
-                            <li><span class="spec-label" data-i18n="mining.specs.compat">Compatibilité</span><span class="spec-value" data-i18n="mining.specs.universal">Universelle</span></li>
+                            <li><span class="spec-label">Capacité</span><span class="spec-value">5000 Wh</span></li>
+                            <li><span class="spec-label">Autonomie</span><span class="spec-value">8-12h</span></li>
+                            <li><span class="spec-label">Recharge</span><span class="spec-value">USB-C</span></li>
+                            <li><span class="spec-label">Compatibilité</span><span class="spec-value">Universelle</span></li>
                         </ul>
-                        <button class="btn btn-primary" style="width: 100%;" data-i18n="mining.order">
+                        <button class="btn btn-primary">
                             <i class="fas fa-shopping-cart"></i> Commander
                         </button>
                     </div>
@@ -1033,80 +926,65 @@
         </div>
     </section>
 
-    <!-- Tokenomics Section (21M FTA) -->
+    <!-- Tokenomics Section -->
     <section class="tokenomics" id="tokenomics">
         <div class="container">
             <div class="section-header">
                 <h2 data-i18n="tokenomics.title">Tokenomics</h2>
-                <p data-i18n="tokenomics.subtitle">Distribution équitable et transparente des tokens FTA</p>
+                <p data-i18n="tokenomics.subtitle">21 000 000 FTA au total</p>
             </div>
             <div class="tokenomics-grid">
                 <div class="tokenomics-card fade-in">
-                    <i class="fas fa-coins" style="font-size: 2.5rem; color: var(--primary);"></i>
                     <div class="tokenomics-percentage">50%</div>
-                    <h3 data-i18n="tokenomics.mining">Minage</h3>
-                    <p style="color: var(--gray);" data-i18n="tokenomics.miningDesc">Récompenses progressives via preuve de travail</p>
+                    <h4 data-i18n="tokenomics.mining">Minage</h4>
                 </div>
                 <div class="tokenomics-card fade-in">
-                    <i class="fas fa-users" style="font-size: 2.5rem; color: var(--secondary);"></i>
                     <div class="tokenomics-percentage">15%</div>
-                    <h3 data-i18n="tokenomics.early">Early Supporters</h3>
-                    <p style="color: var(--gray);" data-i18n="tokenomics.earlyDesc">Communauté pionnière et airdrops</p>
+                    <h4 data-i18n="tokenomics.early">Early Supporters</h4>
                 </div>
                 <div class="tokenomics-card fade-in">
-                    <i class="fas fa-code-branch" style="font-size: 2.5rem; color: var(--primary);"></i>
                     <div class="tokenomics-percentage">10%</div>
-                    <h3 data-i18n="tokenomics.dev">Développement</h3>
-                    <p style="color: var(--gray);" data-i18n="tokenomics.devDesc">Équipe et améliorations du protocole</p>
+                    <h4 data-i18n="tokenomics.dev">Développement</h4>
                 </div>
                 <div class="tokenomics-card fade-in">
-                    <i class="fas fa-vote-yea" style="font-size: 2.5rem; color: var(--secondary);"></i>
                     <div class="tokenomics-percentage">10%</div>
-                    <h3 data-i18n="tokenomics.dao">Trésorerie DAO</h3>
-                    <p style="color: var(--gray);" data-i18n="tokenomics.daoDesc">Gouvernance communautaire</p>
+                    <h4 data-i18n="tokenomics.dao">DAO</h4>
                 </div>
                 <div class="tokenomics-card fade-in">
-                    <i class="fas fa-handshake" style="font-size: 2.5rem; color: var(--primary);"></i>
                     <div class="tokenomics-percentage">8%</div>
-                    <h3 data-i18n="tokenomics.partnerships">Partenariats</h3>
-                    <p style="color: var(--gray);" data-i18n="tokenomics.partnershipsDesc">Listings exchanges et intégrations</p>
+                    <h4 data-i18n="tokenomics.partnerships">Partenariats</h4>
                 </div>
                 <div class="tokenomics-card fade-in">
-                    <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: var(--secondary);"></i>
                     <div class="tokenomics-percentage">7%</div>
-                    <h3 data-i18n="tokenomics.reserve">Réserve</h3>
-                    <p style="color: var(--gray);" data-i18n="tokenomics.reserveDesc">Audits et fonds d'urgence</p>
+                    <h4 data-i18n="tokenomics.reserve">Réserve</h4>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--dark-gray); border-radius: 15px;">
-                <h3 style="color: var(--primary); margin-bottom: 1rem;" data-i18n="tokenomics.totalSupply">Offre Totale</h3>
-                <div style="font-size: 3rem; font-weight: 700; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">21 000 000 FTA</div>
-                <p style="color: var(--gray); margin-top: 1rem;" data-i18n="tokenomics.noInflation">Pas d'inflation supplémentaire après le minage complet</p>
+            <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: var(--dark-gray); border-radius: 12px;">
+                <h3 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1.3rem;" data-i18n="tokenomics.totalSupply">Offre Totale</h3>
+                <div style="font-size: clamp(1.5rem, 8vw, 3rem); font-weight: 700; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">21 000 000 FTA</div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section (WhatsApp + Whitepaper) -->
+    <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
             <div class="section-header">
-                <h2 data-i18n="contact.title">Contactez-nous</h2>
-                <p data-i18n="contact.subtitle">Une question ? Notre équipe vous répond sous 24h</p>
+                <h2 data-i18n="contact.title">Contact</h2>
+                <p data-i18n="contact.subtitle">Réponse sous 24h</p>
             </div>
             <div class="contact-container">
                 <div class="contact-info">
-                    <h3 data-i18n="contact.infoTitle">Informations de Contact</h3>
-                    <p style="color: var(--gray); margin-bottom: 2rem;" data-i18n="contact.infoDesc">Notre équipe est à votre disposition pour répondre à toutes vos questions sur FITIA_TOKEN, le minage, l'airdrop ou les partenariats.</p>
+                    <h3 data-i18n="contact.infoTitle">Informations</h3>
                     
                     <!-- Whitepaper Download -->
-                    <div style="background: var(--dark-gray); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; border-left: 4px solid var(--secondary);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                            <i class="fas fa-file-pdf" style="font-size: 1.5rem; color: var(--secondary);"></i>
-                            <strong>📄 Whitepaper FITIA_TOKEN (FR)</strong>
+                    <div style="background: var(--dark-gray); padding: 1.2rem; border-radius: 10px; margin: 1rem 0; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                            <i class="fas fa-file-pdf" style="font-size: 1.2rem; color: var(--secondary);"></i>
+                            <strong style="font-size: 0.95rem;">📄 Whitepaper (FR)</strong>
                         </div>
-                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 1rem;">Document technique complet – Architecture, tokenomics, roadmap et sécurité.</p>
-                        <a href="./whitepaper-fitia-fr.pdf" class="btn btn-whitepaper" target="_blank" download style="width: 100%; justify-content: center;">
-                            <i class="fas fa-download"></i> Télécharger le PDF (14.4 MB)
+                        <a href="./whitepaper-fitia-fr.pdf" class="btn btn-whitepaper" target="_blank" download rel="noopener" style="padding: 0.7rem; font-size: 0.9rem;">
+                            <i class="fas fa-download"></i> Télécharger PDF
                         </a>
                     </div>
                     
@@ -1116,45 +994,41 @@
                             <div><strong>Email</strong><br><span style="color: var(--gray);">fitiatoken@gmail.com</span></div>
                         </div>
                         <div class="contact-item">
-                            <i class="fas fa-headset"></i>
-                            <div><strong data-i18n="contact.support">Support</strong><br><span style="color: var(--gray);">fitiatoken@gmail.com</span></div>
-                        </div>
-                        <div class="contact-item">
                             <i class="fab fa-whatsapp"></i>
-                            <div><strong data-i18n="contact.whatsapp">WhatsApp</strong><br><span style="color: var(--gray);">@fitia_official</span></div>
+                            <div><strong>WhatsApp</strong><br><span style="color: var(--gray);">@fitia_official</span></div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-globe"></i>
-                            <div><strong data-i18n="contact.website">Site Web</strong><br><span style="color: var(--gray);">https://fitiamining-web.vercel.app/</span></div>
+                            <div><strong>Site</strong><br><span style="color: var(--gray);">fitiamining-web.vercel.app</span></div>
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="https://whatsapp.com/channel/0029VbCQhI38PgsPLbBJdV1e" target="_blank" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://twitter.com/fitia_token" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.tiktok.com/@fitiaofficial?_r=1&_t=ZN-967Gjc8YC3y" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://youtube.com/@fitia_official" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://whatsapp.com/channel/0029VbCQhI38PgsPLbBJdV1e" target="_blank" title="WhatsApp" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://twitter.com/fitia_token" target="_blank" title="Twitter" rel="noopener"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.tiktok.com/@fitiaofficial?_r=1&_t=ZN-967Gjc8YC3y" target="_blank" title="TikTok" rel="noopener"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://youtube.com/@fitia_official" target="_blank" title="YouTube" rel="noopener"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="contact-form">
                     <form id="contactForm" onsubmit="sendEmail(event)">
                         <div class="form-group">
-                            <label for="name" data-i18n="form.name">Nom complet</label>
-                            <input type="text" id="name" name="name" required data-i18n-placeholder="form.namePlaceholder" placeholder="Votre nom">
+                            <label for="name" data-i18n="form.name">Nom</label>
+                            <input type="text" id="name" name="name" required autocomplete="name" data-i18n-placeholder="form.namePlaceholder" placeholder="Votre nom">
                         </div>
                         <div class="form-group">
                             <label for="email" data-i18n="form.email">Email</label>
-                            <input type="email" id="email" name="email" required data-i18n-placeholder="form.emailPlaceholder" placeholder="votre@email.com">
+                            <input type="email" id="email" name="email" required autocomplete="email" data-i18n-placeholder="form.emailPlaceholder" placeholder="votre@email.com">
                         </div>
                         <div class="form-group">
                             <label for="subject" data-i18n="form.subject">Sujet</label>
-                            <input type="text" id="subject" name="subject" required data-i18n-placeholder="form.subjectPlaceholder" placeholder="Sujet de votre message">
+                            <input type="text" id="subject" name="subject" required data-i18n-placeholder="form.subjectPlaceholder" placeholder="Sujet">
                         </div>
                         <div class="form-group">
                             <label for="message" data-i18n="form.message">Message</label>
                             <textarea id="message" name="message" required data-i18n-placeholder="form.messagePlaceholder" placeholder="Votre message..."></textarea>
                         </div>
                         <button type="submit" class="submit-btn" id="submitBtn">
-                            <i class="fas fa-paper-plane"></i> <span data-i18n="form.send">Envoyer le message</span>
+                            <i class="fas fa-paper-plane"></i> <span data-i18n="form.send">Envoyer</span>
                         </button>
                         <div id="formStatus" class="form-status"></div>
                     </form>
@@ -1168,83 +1042,82 @@
         <div class="container">
             <div class="section-header">
                 <h2 data-i18n="faq.title">FAQ</h2>
-                <p data-i18n="faq.subtitle">Réponses aux questions les plus fréquentes</p>
             </div>
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-i18n="faq.q1">Qu'est-ce que FITIA_TOKEN (FTA) ?</span>
+                    <div class="faq-question" role="button" tabindex="0">
+                        <span data-i18n="faq.q1">Qu'est-ce que FTA ?</span>
                         <i class="fas fa-chevron-down faq-icon"></i>
                     </div>
                     <div class="faq-answer">
-                        <p data-i18n="faq.a1">FITIA_TOKEN est une cryptomonnaie 100% open source et décentralisée, inspirée du Bitcoin. Elle permet le minage accessible via des machines optimisées et l'échange sécurisé 24/7 sur le réseau Polygon.</p>
+                        <p data-i18n="faq.a1">FITIA_TOKEN est une cryptomonnaie 100% open source et décentralisée, inspirée du Bitcoin. Minage accessible et échange sécurisé 24/7 sur Polygon.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-i18n="faq.q2">Comment participer à l'airdrop de 1 000 000 FTA ?</span>
+                    <div class="faq-question" role="button" tabindex="0">
+                        <span data-i18n="faq.q2">Comment participer à l'airdrop ?</span>
                         <i class="fas fa-chevron-down faq-icon"></i>
                     </div>
                     <div class="faq-answer">
-                        <p data-i18n="faq.a2">Abonnez-vous à @FitiaOfficial sur TikTok et YouTube, likez et partagez la vidéo officielle à 10 personnes, commentez votre adresse wallet POL, et envoyez les preuves dans notre groupe WhatsApp.</p>
+                        <p data-i18n="faq.a2">Abonnez-vous sur TikTok/YouTube, likez, partagez à 10 personnes, commentez votre adresse POL, envoyez les preuves sur WhatsApp.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-i18n="faq.q3">Quand aura lieu le lancement officiel ?</span>
+                    <div class="faq-question" role="button" tabindex="0">
+                        <span data-i18n="faq.q3">Quand le lancement ?</span>
                         <i class="fas fa-chevron-down faq-icon"></i>
                     </div>
                     <div class="faq-answer">
-                        <p data-i18n="faq.a3">Le lancement officiel de FITIA_TOKEN est prévu pour le 8 Mai 2026. Le compte à rebours est disponible sur notre page d'accueil.</p>
+                        <p data-i18n="faq.a3">8 Mai 2026. Compte à rebours en page d'accueil.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-i18n="faq.q4">Comment miner des FTA ?</span>
+                    <div class="faq-question" role="button" tabindex="0">
+                        <span data-i18n="faq.q4">Comment miner ?</span>
                         <i class="fas fa-chevron-down faq-icon"></i>
                     </div>
                     <div class="faq-answer">
-                        <p data-i18n="faq.a4">Achetez une machine de minage FTA et une batterie compatible sur notre marketplace, connectez-les à votre dashboard personnel, et commencez à miner. Plus votre hashrate est élevé, plus vos récompenses sont importantes.</p>
+                        <p data-i18n="faq.a4">Achetez machine + batterie sur notre marketplace, connectez au dashboard, commencez à miner.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">
+                    <div class="faq-question" role="button" tabindex="0">
                         <span data-i18n="faq.q5">FTA est-il sécurisé ?</span>
                         <i class="fas fa-chevron-down faq-icon"></i>
                     </div>
                     <div class="faq-answer">
-                        <p data-i18n="faq.a5">Oui, FTA est 100% open source (code auditable par tous), entièrement décentralisé, et les smart contracts sont audités. Utilisez toujours un wallet non-custodial comme MetaMask et ne partagez jamais votre seed phrase.</p>
+                        <p data-i18n="faq.a5">Oui, 100% open source, décentralisé, smart contracts audités. Utilisez MetaMask et ne partagez jamais votre seed phrase.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Où puis-je télécharger le Whitepaper ?</span>
+                    <div class="faq-question" role="button" tabindex="0">
+                        <span>Où télécharger le Whitepaper ?</span>
                         <i class="fas fa-chevron-down faq-icon"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Le Whitepaper officiel en français est disponible en téléchargement gratuit dans la section "À propos" ou "Contact" de ce site. Cliquez sur "Télécharger le PDF" pour obtenir le document complet.</p>
+                        <p>Dans la section "À propos" ou "Contact". Cliquez sur "Télécharger PDF" pour obtenir le document complet en français.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer (Sans GitHub) -->
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-section">
                     <h3>FITIA_TOKEN</h3>
-                    <p style="color: var(--gray); margin-bottom: 1rem;" data-i18n="footer.tagline">Miner. Échanger. Posséder. Découvrir.</p>
+                    <p style="color: var(--gray); margin-bottom: 1rem;" data-i18n="footer.tagline">Miner. Échanger. Posséder.</p>
                     <div class="social-links">
-                        <a href="https://whatsapp.com/channel/0029VbCQhI38PgsPLbBJdV1e" target="_blank" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://twitter.com/fitia_token" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="https://youtube.com/@fitia_official" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@fitiaofficial?_r=1&_t=ZN-967Gjc8YC3y" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://whatsapp.com/channel/0029VbCQhI38PgsPLbBJdV1e" target="_blank" title="WhatsApp" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://twitter.com/fitia_token" target="_blank" title="Twitter" rel="noopener"><i class="fab fa-twitter"></i></a>
+                        <a href="https://youtube.com/@fitia_official" target="_blank" title="YouTube" rel="noopener"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@fitiaofficial?_r=1&_t=ZN-967Gjc8YC3y" target="_blank" title="TikTok" rel="noopener"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h3 data-i18n="footer.quickLinks">Liens Rapides</h3>
+                    <h3 data-i18n="footer.quickLinks">Liens</h3>
                     <ul>
                         <li><a href="#apropos" data-i18n="nav.about">À propos</a></li>
                         <li><a href="#airdrop" data-i18n="nav.airdrop">Airdrop</a></li>
@@ -1255,132 +1128,98 @@
                 <div class="footer-section">
                     <h3 data-i18n="footer.resources">Ressources</h3>
                     <ul>
-                        <!-- GitHub retiré -->
                         <li>
-                            <a href="./whitepaper-fitia-fr.pdf" target="_blank" download>
+                            <a href="./whitepaper-fitia-fr.pdf" target="_blank" download rel="noopener">
                                 <i class="fas fa-file-pdf" style="margin-right: 0.5rem; color: var(--secondary);"></i>
-                                Whitepaper (FR) – PDF
+                                Whitepaper (FR)
                             </a>
                         </li>
-                        <li><a href="https://polygonscan.com/token/0x..." target="_blank">PolygonScan</a></li>
-                        <li><a href="#">Documentation</a></li>
+                        <li><a href="https://polygonscan.com/token/0x..." target="_blank" rel="noopener">PolygonScan</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3 data-i18n="footer.contact">Contact</h3>
                     <ul>
                         <li><i class="fas fa-envelope" style="margin-right: 0.5rem; color: var(--primary);"></i> fitiatoken@gmail.com</li>
-                        <li><i class="fas fa-headset" style="margin-right: 0.5rem; color: var(--primary);"></i> fitiatoken@gmail.com</li>
-                        <li><i class="fab fa-whatsapp" style="margin-right: 0.5rem; color: var(--primary);"></i> whatsapp.com/channel/fitia</li>
+                        <li><i class="fab fa-whatsapp" style="margin-right: 0.5rem; color: var(--primary);"></i> WhatsApp Channel</li>
                     </ul>
                 </div>
             </div>
             <div class="disclaimer">
-                <strong data-i18n="footer.warningTitle">Avertissement :</strong> <span data-i18n="footer.warning">Les crypto-actifs sont volatils et comportent des risques de perte en capital. Ce site est à but informatif et ne constitue pas un conseil financier. Faites vos propres recherches (DYOR). Participation réservée aux majeurs.</span>
+                <strong data-i18n="footer.warningTitle">⚠️</strong> <span data-i18n="footer.warning">Crypto-actifs volatils. Risque de perte. Ce site est informatif. DYOR. 18+.</span>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 FITIA_TOKEN. <span data-i18n="footer.rights">Tous droits réservés.</span> | 100% Open Source | Décentralisé</p>
+                <p>&copy; 2026 FITIA_TOKEN. <span data-i18n="footer.rights">Tous droits réservés.</span> | 100% Open Source</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- JavaScript Optimisé Mobile -->
     <script>
         // ==================== TRANSLATIONS ====================
         const translations = {
             fr: {
-                pageTitle: "FITIA_TOKEN (FTA) – Miner. Échanger. Posséder. Découvrir.",
+                pageTitle: "FITIA_TOKEN (FTA) – Miner. Échanger. Posséder.",
                 nav: { home: "Accueil", about: "À propos", airdrop: "Airdrop", mining: "Minage", tokenomics: "Tokenomics", contact: "Contact" },
                 hero: {
                     title: "Miner. Échanger. <span>Posséder.</span>",
-                    description: "FITIA_TOKEN (FTA) est une cryptomonnaie 100% open source et décentralisée. Rejoignez la révolution du minage accessible et sécurisé sur Polygon.",
-                    stats: { airdrop: "FTA en Airdrop", opensource: "Open Source", trading: "Échange Sécurisé" },
-                    cta: { airdrop: "Participer à l'Airdrop", whatsapp: "Rejoindre WhatsApp" },
-                    visual: { subtitle: "L'avenir du minage décentralisé" }
+                    description: "FITIA_TOKEN (FTA) est une cryptomonnaie 100% open source et décentralisée. Rejoignez la révolution du minage accessible sur Polygon.",
+                    stats: { airdrop: "FTA en Airdrop", opensource: "Open Source", trading: "Échange 24/7" },
+                    visual: { subtitle: "Minage décentralisé" }
                 },
-                countdown: {
-                    title: "🚀 Lancement Officiel dans",
-                    days: "Jours", hours: "Heures", minutes: "Minutes", seconds: "Secondes",
-                    date: "Le 8 Mai 2026 – Soyez prêt !"
-                },
+                countdown: { title: "🚀 Lancement dans", days: "J", hours: "H", minutes: "M", seconds: "S", date: "8 Mai 2026" },
                 features: {
-                    title: "Pourquoi Choisir FITIA_TOKEN ?",
-                    subtitle: "Une cryptomonnaie conçue pour la communauté, par la communauté",
-                    card1: { title: "100% Open Source", desc: "Code auditable et transparent. Contribuez, vérifiez, participez au développement de FTA." },
-                    card2: { title: "Décentralisé & Sécurisé", desc: "Aucun contrôle central. Vos actifs vous appartiennent. Smart contracts audités." },
-                    card3: { title: "Minage Accessible", desc: "Machines et batteries optimisées pour un minage rentable, même pour les débutants." },
-                    card4: { title: "Échange 24/7", desc: "Achetez, vendez, transférez vos FTA à tout moment, en toute sécurité, sans intermédiaire." },
-                    card5: { title: "Communauté Active", desc: "Rejoignez une communauté passionnée. Participez à la gouvernance DAO." },
-                    card6: { title: "Éco-Responsable", desc: "Consommation énergétique optimisée. Batteries pour un minage durable." }
+                    title: "Pourquoi FITIA_TOKEN ?", subtitle: "Conçu pour la communauté",
+                    card1: { title: "100% Open Source", desc: "Code auditable et transparent." },
+                    card2: { title: "Décentralisé", desc: "Vos actifs vous appartiennent." },
+                    card3: { title: "Minage Accessible", desc: "Machines optimisées." },
+                    card4: { title: "Échange 24/7", desc: "Sécurisé, sans intermédiaire." },
+                    card5: { title: "Communauté", desc: "Gouvernance DAO." },
+                    card6: { title: "Éco-Responsable", desc: "Consommation optimisée." }
                 },
                 airdrop: {
-                    title: "🎁 Airdrop <span>1 000 000 FTA</span>",
-                    subtitle: "Participez gratuitement et recevez vos tokens FTA avant le lancement officiel.",
-                    step1: { title: "Abonnez-vous", desc: "Suivez @FitiaOfficial sur TikTok et YouTube" },
-                    step2: { title: "Likez & Partagez", desc: "Aimez la vidéo officielle et partagez-la à 10 personnes" },
-                    step3: { title: "Commentez", desc: "Déposez votre adresse wallet POL (Polygon) en commentaire" },
-                    step4: { title: "Envoyez la preuve", desc: "Partagez vos captures d'écran dans le groupe WhatsApp officiel" },
-                    cta: { video: "Voir la Vidéo", whatsapp: "Groupe WhatsApp" },
-                    visual: { share: "FTA à partager", value: "Valeur totale : $12,500 USD" }
+                    title: "🎁 Airdrop <span>1M FTA</span>", subtitle: "Participez gratuitement !",
+                    step1: { title: "Abonnez-vous", desc: "TikTok + YouTube @FitiaOfficial" },
+                    step2: { title: "Likez & Partagez", desc: "Partagez à 10 personnes" },
+                    step3: { title: "Commentez", desc: "Votre adresse wallet POL" },
+                    step4: { title: "Preuve WhatsApp", desc: "Envoyez les screenshots" },
+                    visual: { share: "FTA à partager" }
                 },
                 mining: {
-                    title: "Équipements de Minage",
-                    subtitle: "Des machines optimisées pour maximiser vos récompenses FTA",
-                    card1: { title: "Machine FTA Pro", subtitle: "Pour mineurs exigeants" },
-                    card2: { title: "Batterie FTA Energy", subtitle: "Autonomie et stabilité" },
-                    specs: {
-                        hashrate: "Hashrate", power: "Consommation", noise: "Bruit", warranty: "Garantie", years2: "2 ans",
-                        capacity: "Capacité", autonomy: "Autonomie", charging: "Recharge", fast: "Rapide USB-C",
-                        compat: "Compatibilité", universal: "Universelle"
-                    },
+                    title: "Équipements", subtitle: "Optimisés pour vos gains",
+                    card1: { title: "Machine FTA Pro" }, card2: { title: "Batterie FTA Energy" },
                     order: "Commander"
                 },
                 tokenomics: {
-                    title: "Tokenomics",
-                    subtitle: "Distribution équitable et transparente des tokens FTA",
-                    mining: "Minage", miningDesc: "Récompenses progressives via preuve de travail",
-                    early: "Early Supporters", earlyDesc: "Communauté pionnière et airdrops",
-                    dev: "Développement", devDesc: "Équipe et améliorations du protocole",
-                    dao: "Trésorerie DAO", daoDesc: "Gouvernance communautaire",
-                    partnerships: "Partenariats", partnershipsDesc: "Listings exchanges et intégrations",
-                    reserve: "Réserve", reserveDesc: "Audits et fonds d'urgence",
-                    totalSupply: "Offre Totale",
-                    noInflation: "Pas d'inflation supplémentaire après le minage complet"
+                    title: "Tokenomics", subtitle: "21 000 000 FTA au total",
+                    mining: "Minage", early: "Early", dev: "Dev", dao: "DAO",
+                    partnerships: "Partenaires", reserve: "Réserve",
+                    totalSupply: "Offre Totale"
                 },
                 contact: {
-                    title: "Contactez-nous",
-                    subtitle: "Une question ? Notre équipe vous répond sous 24h",
-                    infoTitle: "Informations de Contact",
-                    infoDesc: "Notre équipe est à votre disposition pour répondre à toutes vos questions sur FITIA_TOKEN, le minage, l'airdrop ou les partenariats.",
-                    support: "Support", whatsapp: "WhatsApp", website: "Site Web"
+                    title: "Contact", subtitle: "Réponse sous 24h",
+                    infoTitle: "Informations", support: "Support", whatsapp: "WhatsApp", website: "Site"
                 },
                 form: {
-                    name: "Nom complet", namePlaceholder: "Votre nom",
+                    name: "Nom", namePlaceholder: "Votre nom",
                     email: "Email", emailPlaceholder: "votre@email.com",
-                    subject: "Sujet", subjectPlaceholder: "Sujet de votre message",
+                    subject: "Sujet", subjectPlaceholder: "Sujet",
                     message: "Message", messagePlaceholder: "Votre message...",
-                    send: "Envoyer le message", sending: "Envoi en cours...",
-                    sent: "Message envoyé avec succès !", error: "Erreur lors de l'envoi. Veuillez réessayer."
+                    send: "Envoyer", sending: "Envoi...",
+                    sent: "✅ Message envoyé !", error: "❌ Erreur. Réessayez."
                 },
                 faq: {
-                    title: "FAQ", subtitle: "Réponses aux questions les plus fréquentes",
-                    q1: "Qu'est-ce que FITIA_TOKEN (FTA) ?",
-                    a1: "FITIA_TOKEN est une cryptomonnaie 100% open source et décentralisée, inspirée du Bitcoin. Elle permet le minage accessible via des machines optimisées et l'échange sécurisé 24/7 sur le réseau Polygon.",
-                    q2: "Comment participer à l'airdrop de 1 000 000 FTA ?",
-                    a2: "Abonnez-vous à @FitiaOfficial sur TikTok et YouTube, likez et partagez la vidéo officielle à 10 personnes, commentez votre adresse wallet POL, et envoyez les preuves dans notre groupe WhatsApp.",
-                    q3: "Quand aura lieu le lancement officiel ?",
-                    a3: "Le lancement officiel de FITIA_TOKEN est prévu pour le 8 Mai 2026. Le compte à rebours est disponible sur notre page d'accueil.",
-                    q4: "Comment miner des FTA ?",
-                    a4: "Achetez une machine de minage FTA et une batterie compatible sur notre marketplace, connectez-les à votre dashboard personnel, et commencez à miner. Plus votre hashrate est élevé, plus vos récompenses sont importantes.",
-                    q5: "FTA est-il sécurisé ?",
-                    a5: "Oui, FTA est 100% open source (code auditable par tous), entièrement décentralisé, et les smart contracts sont audités. Utilisez toujours un wallet non-custodial comme MetaMask et ne partagez jamais votre seed phrase."
+                    title: "FAQ",
+                    q1: "Qu'est-ce que FTA ?", a1: "Cryptomonnaie 100% open source et décentralisée, inspirée du Bitcoin. Minage accessible et échange sécurisé 24/7 sur Polygon.",
+                    q2: "Comment participer à l'airdrop ?", a2: "Abonnez-vous sur TikTok/YouTube, likez, partagez à 10 personnes, commentez votre adresse POL, envoyez les preuves sur WhatsApp.",
+                    q3: "Quand le lancement ?", a3: "8 Mai 2026. Compte à rebours en page d'accueil.",
+                    q4: "Comment miner ?", a4: "Achetez machine + batterie, connectez au dashboard, commencez à miner.",
+                    q5: "FTA est-il sécurisé ?", a5: "Oui, 100% open source, décentralisé, smart contracts audités. Utilisez MetaMask et ne partagez jamais votre seed phrase."
                 },
                 footer: {
-                    tagline: "Miner. Échanger. Posséder. Découvrir.",
-                    quickLinks: "Liens Rapides", resources: "Ressources", contact: "Contact",
+                    tagline: "Miner. Échanger. Posséder.", quickLinks: "Liens", resources: "Ressources", contact: "Contact",
                     rights: "Tous droits réservés.",
-                    warningTitle: "Avertissement :",
-                    warning: "Les crypto-actifs sont volatils et comportent des risques de perte en capital. Ce site est à but informatif et ne constitue pas un conseil financier. Faites vos propres recherches (DYOR). Participation réservée aux majeurs."
+                    warningTitle: "⚠️", warning: "Crypto-actifs volatils. Risque de perte. Ce site est informatif. DYOR. 18+."
                 }
             },
             en: { /* Ajoutez traductions EN ici */ },
@@ -1416,32 +1255,54 @@
                 const btn = document.querySelector(`.lang-btn[onclick="changeLanguage('${savedLang}')"]`);
                 if (btn) btn.click();
             }
+            // ✅ Initialiser les animations au chargement
+            initScrollAnimations();
         });
 
-        // ==================== COUNTDOWN TIMER ====================
+        // ==================== MENU MOBILE ====================
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            const icon = document.querySelector('#mobileMenu i');
+            nav.classList.toggle('active');
+            icon.className = nav.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+        }
+        
+        function closeMenu() {
+            const nav = document.getElementById('navLinks');
+            const icon = document.querySelector('#mobileMenu i');
+            nav.classList.remove('active');
+            icon.className = 'fas fa-bars';
+        }
+        
+        // ✅ Fermer le menu si on clique en dehors
+        document.addEventListener('click', (e) => {
+            const nav = document.getElementById('navLinks');
+            const menu = document.getElementById('mobileMenu');
+            if (nav.classList.contains('active') && !nav.contains(e.target) && !menu.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // ==================== COUNTDOWN ====================
         function updateCountdown() {
             const launchDate = new Date('2026-05-08T00:00:00').getTime();
             const now = new Date().getTime();
             const distance = launchDate - now;
             
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-            
             if (distance < 0) {
-                document.getElementById('countdown').innerHTML = '<div style="font-size: 2rem; color: var(--primary);">🚀 LANCEMENT EN COURS !</div>';
+                document.getElementById('countdown').innerHTML = '<div style="font-size: 1.5rem; color: var(--primary);">🚀 LANCEMENT !</div>';
+                return;
             }
+            
+            document.getElementById('days').textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            document.getElementById('hours').textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // ==================== EMAIL FORM (EmailJS) ====================
+        // ==================== EMAIL FORM ====================
         function sendEmail(e) {
             e.preventDefault();
             const form = document.getElementById('contactForm');
@@ -1478,55 +1339,44 @@
 
         // ==================== FAQ ACCORDION ====================
         document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                const isActive = item.classList.contains('active');
-                document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('active'));
-                if (!isActive) item.classList.add('active');
-            });
+            question.addEventListener('click', toggleFaq);
+            question.addEventListener('keypress', (e) => { if (e.key === 'Enter') toggleFaq.call(question); });
         });
+        
+        function toggleFaq() {
+            const item = this.parentElement;
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        }
 
-        // ==================== SCROLL ANIMATION ====================
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        // ==================== SCROLL ANIMATIONS ====================
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
 
         // ==================== SMOOTH SCROLL ====================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (window.innerWidth < 768) closeMenu();
+                }
             });
         });
 
-        // ==================== MOBILE MENU ====================
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-        mobileMenu.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            navLinks.style.position = 'absolute';
-            navLinks.style.top = '100%';
-            navLinks.style.left = '0';
-            navLinks.style.right = '0';
-            navLinks.style.flexDirection = 'column';
-            navLinks.style.background = 'var(--dark)';
-            navLinks.style.padding = '2rem';
-            navLinks.style.borderTop = '1px solid rgba(245, 197, 24, 0.1)';
-        });
-
-        // ==================== NAVBAR SCROLL EFFECT ====================
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(10, 14, 23, 0.98)';
-                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.3)';
-            } else {
-                nav.style.background = 'rgba(10, 14, 23, 0.95)';
-                nav.style.boxShadow = 'none';
-            }
-        });
+        // ✅ Optimisation : Désactiver le double-tap zoom sur iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) event.preventDefault();
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
 </html>
