@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- ✅ Viewport optimisé mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="FITIA_TOKEN (FTA) – 100% open source & decentralized cryptocurrency. Mine, trade & own securely.">
     <meta name="keywords" content="FITIA_TOKEN, FTA, crypto, mining, blockchain, Polygon, open source, decentralized, airdrop">
@@ -11,16 +10,20 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <!-- Open Graph -->
+    <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.fitia-token.io/">
     <meta property="og:title" content="FITIA_TOKEN (FTA) – Mine. Trade. Own.">
     <meta property="og:description" content="100% open source decentralized cryptocurrency. Join the 1,000,000 FTA airdrop.">
-    <meta property="og:image" content="https://www.fitia-token.io/assets/og-image.jpg">
+    <meta property="og:image" content="./assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪙</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪙</text></svg>">
+    <!-- ✅ Favicon & Apple Touch Icon avec LOGO -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="./assets/logo-small.png">
+    <link rel="apple-touch-icon" href="./assets/logo-small.png">
+    <link rel="manifest" href="./assets/manifest.json">
     
     <title data-i18n="pageTitle">FITIA_TOKEN (FTA) – Mine. Trade. Own. Discover.</title>
     
@@ -54,6 +57,9 @@
             --shadow-gold: 0 10px 40px rgba(245, 197, 24, 0.2);
             --touch-target: 44px;
             --mobile-padding: 1rem;
+            /* ✅ Logo dimensions */
+            --logo-size: 40px;
+            --logo-size-mobile: 32px;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -81,6 +87,33 @@
         }
         
         a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        
+        /* ✅ LOGO STYLES */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.2rem, 5vw, 1.6rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo-img {
+            height: var(--logo-size);
+            width: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .logo-img { height: var(--logo-size-mobile); }
+        }
         
         /* Language Switcher */
         .lang-switcher {
@@ -134,15 +167,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(1.3rem, 5vw, 1.8rem);
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         .nav-links {
             display: none;
@@ -264,15 +288,36 @@
             display: flex;
             justify-content: center;
         }
-        .hero-visual > div {
+        .hero-logo-card {
             width: 100%;
             max-width: 350px;
             padding: 2rem;
-            border-radius: 16px;
+            border-radius: 20px;
             text-align: center;
             background: linear-gradient(135deg, #F5C518 0%, #00D17A 100%);
+            box-shadow: var(--shadow-gold);
         }
-        .hero-visual i { font-size: clamp(4rem, 15vw, 8rem); color: white; }
+        .hero-logo {
+            width: clamp(80px, 30vw, 150px);
+            height: auto;
+            margin: 0 auto 1rem;
+            display: block;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .hero-logo-card h3 {
+            margin-top: 1rem;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            color: var(--dark);
+        }
+        .hero-logo-card p {
+            color: rgba(10, 14, 23, 0.9);
+            font-weight: 500;
+        }
         
         /* Countdown */
         .countdown-section {
@@ -598,7 +643,10 @@
         
         /* Media Queries */
         @media (min-width: 768px) {
-            :root { --mobile-padding: 2rem; }
+            :root { 
+                --mobile-padding: 2rem;
+                --logo-size: 48px;
+            }
             .nav-links {
                 display: flex !important;
                 flex-direction: row;
@@ -648,7 +696,7 @@
 </head>
 <body>
 
-    <!-- Language Switcher - EN active by default -->
+    <!-- Language Switcher -->
     <div class="lang-switcher">
         <button class="lang-btn active" onclick="changeLanguage('en')" aria-label="English">EN</button>
         <button class="lang-btn" onclick="changeLanguage('fr')" aria-label="Français">FR</button>
@@ -656,10 +704,15 @@
         <button class="lang-btn" onclick="changeLanguage('pt')" aria-label="Português">PT</button>
     </div>
 
-    <!-- Navigation -->
+    <!-- Navigation avec LOGO -->
     <nav>
         <div class="nav-container">
-            <div class="logo">🪙 FITIA_TOKEN</div>
+            <!-- ✅ LOGO dans la navigation -->
+            <a href="#home" class="logo" onclick="closeMenu()">
+                <img src="./assets/logo.png" alt="FITIA_TOKEN Logo" class="logo-img" onerror="this.style.display='none'; this.parentElement.innerHTML='🪙 FITIA_TOKEN'">
+                <span>FITIA_TOKEN</span>
+            </a>
+            
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" data-i18n="nav.home" onclick="closeMenu()">Home</a></li>
                 <li><a href="#about" data-i18n="nav.about" onclick="closeMenu()">About</a></li>
@@ -674,7 +727,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section avec LOGO animé -->
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
@@ -708,11 +761,13 @@
                     </a>
                 </div>
             </div>
+            
+            <!-- ✅ LOGO principal dans le Hero -->
             <div class="hero-visual">
-                <div>
-                    <i class="fas fa-coins"></i>
-                    <h3 style="margin-top: 1rem; font-size: 1.5rem;">FITIA_TOKEN</h3>
-                    <p style="color: rgba(255,255,255,0.95);" data-i18n="hero.visual.subtitle">The future of decentralized mining</p>
+                <div class="hero-logo-card">
+                    <img src="./assets/logo.png" alt="FITIA_TOKEN" class="hero-logo" onerror="this.src='data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>🪙</text></svg>'">
+                    <h3>FITIA_TOKEN</h3>
+                    <p data-i18n="hero.visual.subtitle">The future of decentralized mining</p>
                 </div>
             </div>
         </div>
@@ -1091,7 +1146,11 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-section">
-                    <h3>FITIA_TOKEN</h3>
+                    <!-- ✅ LOGO dans le footer -->
+                    <div class="logo" style="margin-bottom: 1rem;">
+                        <img src="./assets/logo.png" alt="FITIA_TOKEN" class="logo-img" style="height: 36px;" onerror="this.style.display='none'">
+                        <span>FITIA_TOKEN</span>
+                    </div>
                     <p style="color: var(--gray); margin-bottom: 1rem;" data-i18n="footer.tagline">Mine. Trade. Own.</p>
                     <div class="social-links">
                         <a href="https://whatsapp.com/channel/0029VbCQhI38PgsPLbBJdV1e" target="_blank" title="WhatsApp" rel="noopener"><i class="fab fa-whatsapp"></i></a>
@@ -1271,8 +1330,8 @@
                 }
             },
             es: {
-                 pageTitle: "FITIA_TOKEN (FTA) – Minar. Intercambiar. Poseer.",
-                 nav: { home: "Inicio", about: "Acerca de", /* ... */ },
+                pageTitle: "FITIA_TOKEN (FTA) – Minar. Intercambiar. Poseer.",
+                nav: { home: "Inicio", about: "Acerca de", airdrop: "Airdrop", mining: "Minage", tokenomics: "Tokenomics", contact: "Contact" },
                 hero: {
                     title: "Miner. Échanger. <span>Posséder.</span>",
                     description: "FITIA_TOKEN (FTA) est une cryptomonnaie 100% open source et décentralisée. Rejoignez la révolution du minage accessible sur Polygon.",
@@ -1335,8 +1394,8 @@
                 }
             },
             pt: {
-                 pageTitle: "FITIA_TOKEN (FTA) – Minerar. Negociar. Possuir.",
-                 nav: { home: "Início", about: "Sobre", /* ... */ },
+                pageTitle: "FITIA_TOKEN (FTA) – Minerar. Negociar. Possuir.",
+                nav: { home: "Início", about: "Sobre", airdrop: "Airdrop", mining: "Minage", tokenomics: "Tokenomics", contact: "Contact" },
                 hero: {
                     title: "Miner. Échanger. <span>Posséder.</span>",
                     description: "FITIA_TOKEN (FTA) est une cryptomonnaie 100% open source et décentralisée. Rejoignez la révolution du minage accessible sur Polygon.",
@@ -1400,7 +1459,6 @@
             }
         };
 
-        // ✅ DEFAULT LANGUAGE: English
         let currentLang = 'en';
 
         function changeLanguage(lang) {
@@ -1424,7 +1482,6 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            // ✅ Load saved language OR default to English
             const savedLang = localStorage.getItem('fitia_lang') || 'en';
             if (savedLang !== 'en') {
                 const btn = document.querySelector(`.lang-btn[onclick="changeLanguage('${savedLang}')"]`);
