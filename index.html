@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="FITIA_TOKEN (FTA) – 100% open source & decentralized cryptocurrency. Mine, trade & own securely.">
+    <meta name="description" content="FITIA_TOKEN (FTA) – 100% open source & decentralized cryptocurrency. Mine, trade & own securely, and join the 1M FTA holiday community airdrop.">
     <meta name="keywords" content="FITIA_TOKEN, FTA, crypto, mining, blockchain, Polygon, open source, decentralized, airdrop">
     <meta name="author" content="FITIA_TOKEN Team">
     <meta name="theme-color" content="#0A0E17">
@@ -14,7 +14,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.fitia-token.io/">
     <meta property="og:title" content="FITIA_TOKEN (FTA) – Mine. Trade. Own.">
-    <meta property="og:description" content="100% open source decentralized cryptocurrency. Join the 1,000,000 FTA airdrop.">
+    <meta property="og:description" content="100% open source decentralized cryptocurrency. Join the 1,000,000 FTA holiday community airdrop.">
     <meta property="og:image" content="./assets/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -118,7 +118,7 @@
         /* Language Switcher */
         .lang-switcher {
             position: fixed;
-            top: 12px;
+            top: calc(12px + var(--header-offset));
             right: 12px;
             z-index: 1001;
             display: flex;
@@ -152,7 +152,7 @@
         /* Navigation */
         nav {
             position: fixed;
-            top: 0;
+            top: var(--header-offset);
             width: 100%;
             background: rgba(10, 14, 23, 0.98);
             backdrop-filter: blur(10px);
@@ -208,7 +208,7 @@
         
         /* Hero Section */
         .hero {
-            margin-top: 70px;
+            margin-top: calc(70px + var(--header-offset));
             padding: 3rem var(--mobile-padding);
             background: var(--gradient-dark);
             position: relative;
@@ -633,6 +633,254 @@
             color: var(--gray);
         }
         
+        /* ==================== HOLIDAY / CHRISTMAS ==================== */
+        :root {
+            --pine: #0E3B2E;
+            --pine-light: #14624A;
+        }
+        body { --header-offset: 0px; }
+        body.holiday-on { --header-offset: 46px; }
+
+        /* Anchors stay visible under the fixed header */
+        section[id] { scroll-margin-top: calc(84px + var(--header-offset)); }
+
+        /* Seasonal announcement bar */
+        .holiday-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1003;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 2.75rem;
+            background: linear-gradient(90deg, #0B2E24 0%, var(--pine-light) 50%, #0B2E24 100%);
+            border-bottom: 1px solid rgba(245, 197, 24, 0.4);
+            color: var(--light);
+            font-size: 0.8rem;
+        }
+        body:not(.holiday-on) .holiday-bar { display: none; }
+        .holiday-bar .bar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 0;
+            max-width: 100%;
+            color: var(--gray);
+            font-size: inherit;
+            line-height: 1.2;
+        }
+        .holiday-bar .bar-link:hover { color: var(--light); }
+        .holiday-bar .bar-label {
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .holiday-bar .bar-label strong { color: var(--primary); font-weight: 700; }
+        .holiday-bar .bar-link i { flex-shrink: 0; font-size: 0.7rem; color: var(--primary); }
+        .holiday-bar .bar-close {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .holiday-bar .bar-close:hover { color: var(--light); background: rgba(255, 255, 255, 0.08); }
+        @media (max-width: 600px) {
+            .holiday-bar { font-size: 0.72rem; padding: 0 2.5rem; }
+        }
+
+        /* Light snowfall */
+        .snow-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 900;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .snowflake {
+            position: absolute;
+            top: -12vh;
+            border-radius: 50%;
+            background: #FFFFFF;
+            will-change: transform;
+            animation-name: snow-fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        @keyframes snow-fall {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(var(--drift, 20px), 122vh, 0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .snow-layer { display: none; }
+        }
+
+        /* Hero seasonal badge */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.4rem 0.85rem;
+            margin-bottom: 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 209, 122, 0.35);
+            background: rgba(0, 209, 122, 0.08);
+            color: var(--secondary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        /* Holiday section */
+        .holiday {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(900px 420px at 12% -10%, rgba(0, 209, 122, 0.14), transparent 60%),
+                radial-gradient(760px 380px at 92% 8%, rgba(245, 197, 24, 0.12), transparent 60%),
+                linear-gradient(160deg, #06120E 0%, #081A14 45%, #050810 100%);
+        }
+        .holiday::before {
+            content: "\2744";
+            position: absolute;
+            top: -2rem;
+            right: -1rem;
+            font-size: 11rem;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.04);
+            pointer-events: none;
+        }
+        .holiday-card {
+            position: relative;
+            padding: clamp(1.5rem, 5vw, 3.5rem) clamp(1rem, 4vw, 3rem);
+            border-radius: 24px;
+            text-align: center;
+            background: linear-gradient(155deg, rgba(20, 98, 74, 0.35) 0%, rgba(10, 20, 17, 0.92) 55%, rgba(5, 8, 16, 0.95) 100%);
+            border: 1px solid rgba(245, 197, 24, 0.28);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+        }
+        .holiday-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
+        }
+        .holiday-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.4rem 0.85rem;
+            margin-bottom: 1.25rem;
+            border-radius: 999px;
+            border: 1px solid rgba(245, 197, 24, 0.4);
+            background: rgba(245, 197, 24, 0.1);
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .holiday-card h2 { margin-bottom: 1rem; }
+        .holiday-card h2 span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .holiday-intro {
+            color: var(--gray);
+            max-width: 680px;
+            margin: 0 auto 2rem;
+        }
+        .holiday-countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            max-width: 520px;
+            margin: 0 auto 1rem;
+        }
+        .hc-item {
+            background: rgba(5, 8, 16, 0.55);
+            border: 1px solid rgba(0, 209, 122, 0.25);
+            border-radius: 12px;
+            padding: 0.85rem 0.25rem;
+        }
+        .hc-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.25rem, 6vw, 2.1rem);
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--light);
+        }
+        .hc-label {
+            color: var(--gray);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            margin-top: 0.25rem;
+        }
+        .holiday-date { color: var(--gray); font-size: 0.85rem; margin-bottom: 1.75rem; }
+        .holiday-perks {
+            list-style: none;
+            display: grid;
+            gap: 0.75rem;
+            margin: 0 auto 2rem;
+            max-width: 860px;
+            text-align: left;
+        }
+        .holiday-perks li {
+            display: flex;
+            gap: 0.65rem;
+            align-items: flex-start;
+            padding: 0.85rem 0.95rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            color: var(--gray);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+        .holiday-perks i { color: var(--secondary); margin-top: 0.2rem; }
+        .holiday-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        .holiday-actions .btn { max-width: 340px; }
+        .holiday-actions .btn-secondary { background: rgba(10, 14, 23, 0.6); }
+        .holiday-note {
+            color: var(--gray);
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin: 1.5rem auto 0;
+            max-width: 720px;
+        }
+        @media (min-width: 768px) {
+            .hc-label { font-size: 0.7rem; }
+            .holiday-perks { grid-template-columns: repeat(3, 1fr); }
+            .holiday-actions { flex-direction: row; justify-content: center; }
+            .holiday-actions .btn { max-width: none; }
+        }
+
         /* Animations */
         .fade-in {
             opacity: 0;
@@ -659,7 +907,7 @@
             }
             .nav-links a { padding: 0.5rem 0; min-height: auto; }
             .mobile-menu { display: none; }
-            .hero { padding: 5rem var(--mobile-padding); margin-top: 80px; }
+            .hero { padding: 5rem var(--mobile-padding); margin-top: calc(80px + var(--header-offset)); }
             .hero-container { grid-template-columns: 1fr 1fr; gap: 3rem; }
             .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
             .cta-buttons { flex-direction: row; max-width: none; flex-wrap: wrap; }
@@ -694,7 +942,19 @@
         }
     </style>
 </head>
-<body>
+<body class="holiday-on">
+
+    <!-- Holiday announcement bar -->
+    <div class="holiday-bar" id="holidayBar" role="region" aria-label="Christmas campaign">
+        <a href="#holiday" class="bar-link">
+            <span aria-hidden="true">🎄</span>
+            <span class="bar-label"><strong data-i18n="holiday.barStrong">Holiday gift</strong> <span data-i18n="holiday.barText">— 1,000,000 FTA community airdrop</span></span>
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <button type="button" class="bar-close" onclick="dismissHoliday()" data-i18n-aria="holiday.close" aria-label="Close">
+            <i class="fas fa-xmark" aria-hidden="true"></i>
+        </button>
+    </div>
 
     <!-- Language Switcher -->
     <div class="lang-switcher">
@@ -731,6 +991,10 @@
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
+                <span class="hero-badge">
+                    <i class="fas fa-snowflake" aria-hidden="true"></i>
+                    <span data-i18n="hero.badge">🎄 Holiday Edition</span>
+                </span>
                 <h1 data-i18n="hero.title">Mine. Trade. <span>Own.</span></h1>
                 <p data-i18n="hero.description">FITIA_TOKEN (FTA) is a 100% open source & decentralized cryptocurrency. Join the revolution of accessible & secure mining on Polygon.</p>
                 
@@ -796,6 +1060,69 @@
                 </div>
             </div>
             <p style="color: var(--gray); font-size: 0.95rem;" data-i18n="countdown.date">May 8, 2026</p>
+        </div>
+    </section>
+
+    <!-- Holiday / Christmas Section -->
+    <section class="holiday" id="holiday">
+        <div class="container">
+            <div class="holiday-card fade-in">
+                <span class="holiday-badge">
+                    <i class="fas fa-snowflake" aria-hidden="true"></i>
+                    <span data-i18n="holiday.badge">Holiday Edition · December 25</span>
+                </span>
+
+                <h2 data-i18n="holiday.title">A Christmas gift <span>for the whole community</span></h2>
+                <p class="holiday-intro" data-i18n="holiday.intro">To celebrate the holidays, FITIA_TOKEN is putting its 1,000,000 FTA community airdrop in the spotlight: free to enter, open to everyone, and built to reward the people who support the project.</p>
+
+                <div class="holiday-countdown" role="timer" aria-label="Christmas countdown">
+                    <div class="hc-item">
+                        <div class="hc-value" id="hcDays">00</div>
+                        <div class="hc-label" data-i18n="holiday.days">Days</div>
+                    </div>
+                    <div class="hc-item">
+                        <div class="hc-value" id="hcHours">00</div>
+                        <div class="hc-label" data-i18n="holiday.hours">Hours</div>
+                    </div>
+                    <div class="hc-item">
+                        <div class="hc-value" id="hcMinutes">00</div>
+                        <div class="hc-label" data-i18n="holiday.minutes">Min</div>
+                    </div>
+                    <div class="hc-item">
+                        <div class="hc-value" id="hcSeconds">00</div>
+                        <div class="hc-label" data-i18n="holiday.seconds">Sec</div>
+                    </div>
+                </div>
+                <p class="holiday-date" data-i18n="holiday.date">Next Christmas: December 25</p>
+
+                <ul class="holiday-perks">
+                    <li>
+                        <i class="fas fa-gift" aria-hidden="true"></i>
+                        <span data-i18n="holiday.perk1">Free entry — no purchase required to take part in the airdrop.</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-coins" aria-hidden="true"></i>
+                        <span data-i18n="holiday.perk2">1,000,000 FTA shared with the community.</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                        <span data-i18n="holiday.perk3">A non-custodial Polygon (POL) wallet to receive your FTA.</span>
+                    </li>
+                </ul>
+
+                <div class="holiday-actions">
+                    <a href="#airdrop" class="btn btn-primary">
+                        <i class="fas fa-gift" aria-hidden="true"></i>
+                        <span data-i18n="holiday.cta1">Join the airdrop</span>
+                    </a>
+                    <a href="https://chat.whatsapp.com/BDsvPCB6xp8H8X0YaRmPFP" class="btn btn-secondary" target="_blank" rel="noopener">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        <span data-i18n="holiday.cta2">Talk to the team</span>
+                    </a>
+                </div>
+
+                <p class="holiday-note" data-i18n="holiday.note">Rewards are distributed once the steps described in the Airdrop section are verified. Crypto-assets carry risk — never share your seed phrase.</p>
+            </div>
         </div>
     </section>
 
@@ -1130,11 +1457,20 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-question" role="button" tabindex="0">
-                        <span>Where can I download the Whitepaper?</span>
+                        <span data-i18n="faq.q6">Where can I download the Whitepaper?</span>
                         <i class="fas fa-chevron-down faq-icon"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>In the "About" or "Contact" section. Click "Download PDF" to get the complete technical document.</p>
+                        <p data-i18n="faq.a6">In the "About" or "Contact" section. Click "Download PDF" to get the complete technical document.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" role="button" tabindex="0">
+                        <span data-i18n="faq.q7">Is there a special Christmas offer?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-i18n="faq.a7">Yes — the 1,000,000 FTA community airdrop is our holiday gift. Participation is free: follow the four steps in the Airdrop section. No purchase is required, and rewards are sent to your POL wallet after verification.</p>
                     </div>
                 </div>
             </div>
@@ -1197,6 +1533,9 @@
         </div>
     </footer>
 
+    <!-- Seasonal snowfall (decorative) -->
+    <div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
+
     <!-- JavaScript -->
     <script>
         // ==================== TRANSLATIONS ====================
@@ -1205,12 +1544,26 @@
                 pageTitle: "FITIA_TOKEN (FTA) – Mine. Trade. Own. Discover.",
                 nav: { home: "Home", about: "About", airdrop: "Airdrop", mining: "Mining", tokenomics: "Tokenomics", contact: "Contact" },
                 hero: {
+                    badge: "🎄 Holiday Edition",
                     title: "Mine. Trade. <span>Own.</span>",
                     description: "FITIA_TOKEN (FTA) is a 100% open source & decentralized cryptocurrency. Join the revolution of accessible & secure mining on Polygon.",
                     stats: { airdrop: "FTA in Airdrop", opensource: "Open Source", trading: "Secure Trading" },
                     visual: { subtitle: "The future of decentralized mining" }
                 },
                 countdown: { title: "🚀 Official Launch in", days: "D", hours: "H", minutes: "M", seconds: "S", date: "May 8, 2026" },
+                holiday: {
+                    barStrong: "Holiday gift", barText: "— 1,000,000 FTA community airdrop", close: "Close the banner",
+                    badge: "Holiday Edition · December 25",
+                    title: "A Christmas gift <span>for the whole community</span>",
+                    intro: "To celebrate the holidays, FITIA_TOKEN is putting its 1,000,000 FTA community airdrop in the spotlight: free to enter, open to everyone, and built to reward the people who support the project.",
+                    days: "Days", hours: "Hours", minutes: "Min", seconds: "Sec",
+                    date: "Next Christmas: December 25",
+                    perk1: "Free entry — no purchase required to take part.",
+                    perk2: "1,000,000 FTA shared with the community.",
+                    perk3: "A non-custodial Polygon (POL) wallet to receive your FTA.",
+                    cta1: "Join the airdrop", cta2: "Talk to the team",
+                    note: "Rewards are distributed once the steps described in the Airdrop section are verified. Crypto-assets carry risk — never share your seed phrase."
+                },
                 features: {
                     title: "Why FITIA_TOKEN?", subtitle: "Built for the community, by the community",
                     card1: { title: "100% Open Source", desc: "Auditable & transparent code." },
@@ -1257,7 +1610,9 @@
                     q2: "How to participate in the airdrop?", a2: "Subscribe on TikTok/YouTube, like & share the video to 10 people, comment your POL wallet address, send proofs to our WhatsApp group.",
                     q3: "When is the official launch?", a3: "May 8, 2026. Countdown on homepage.",
                     q4: "How to mine FTA?", a4: "Buy mining machine + battery from marketplace, connect to dashboard, start mining.",
-                    q5: "Is FTA secure?", a5: "Yes, 100% open source, decentralized, audited smart contracts. Use MetaMask, never share seed phrase."
+                    q5: "Is FTA secure?", a5: "Yes, 100% open source, decentralized, audited smart contracts. Use MetaMask, never share seed phrase.",
+                    q6: "Where can I download the Whitepaper?", a6: "In the About or Contact section. Click Download PDF to get the complete technical document.",
+                    q7: "Is there a special Christmas offer?", a7: "Yes — the 1,000,000 FTA community airdrop is our holiday gift. Participation is free: follow the four steps in the Airdrop section. No purchase is required, and rewards are sent to your POL wallet after verification."
                 },
                 footer: {
                     tagline: "Mine. Trade. Own.", quickLinks: "Quick Links", resources: "Resources", contact: "Contact",
@@ -1269,12 +1624,26 @@
                 pageTitle: "FITIA_TOKEN (FTA) – Miner. Échanger. Posséder.",
                 nav: { home: "Accueil", about: "À propos", airdrop: "Airdrop", mining: "Minage", tokenomics: "Tokenomics", contact: "Contact" },
                 hero: {
+                    badge: "🎄 Édition des fêtes",
                     title: "Miner. Échanger. <span>Posséder.</span>",
                     description: "FITIA_TOKEN (FTA) est une cryptomonnaie 100% open source et décentralisée. Rejoignez la révolution du minage accessible sur Polygon.",
                     stats: { airdrop: "FTA en Airdrop", opensource: "Open Source", trading: "Échange 24/7" },
                     visual: { subtitle: "Minage décentralisé" }
                 },
                 countdown: { title: "🚀 Lancement dans", days: "J", hours: "H", minutes: "M", seconds: "S", date: "8 Mai 2026" },
+                holiday: {
+                    barStrong: "Cadeau de Noël", barText: "— 1 000 000 FTA pour la communauté", close: "Fermer le bandeau",
+                    badge: "Édition des fêtes · 25 décembre",
+                    title: "Un cadeau de Noël <span>pour toute la communauté</span>",
+                    intro: "Pour célébrer les fêtes, FITIA_TOKEN met en avant son airdrop communautaire de 1 000 000 FTA : participation gratuite, ouverte à tous, pour récompenser celles et ceux qui soutiennent le projet.",
+                    days: "Jours", hours: "Heures", minutes: "Min", seconds: "Sec",
+                    date: "Prochain Noël : 25 décembre",
+                    perk1: "Participation 100 % gratuite, sans achat obligatoire.",
+                    perk2: "1 000 000 FTA partagés avec la communauté.",
+                    perk3: "Un wallet Polygon (POL) non-custodial pour recevoir vos FTA.",
+                    cta1: "Participer à l'airdrop", cta2: "Contacter l'équipe",
+                    note: "Les récompenses sont versées après vérification des étapes décrites dans la section Airdrop. Les crypto-actifs comportent des risques — ne partagez jamais votre phrase de récupération."
+                },
                 features: {
                     title: "Pourquoi FITIA_TOKEN ?", subtitle: "Conçu pour la communauté",
                     card1: { title: "100% Open Source", desc: "Code auditable et transparent." },
@@ -1321,7 +1690,9 @@
                     q2: "Comment participer à l'airdrop ?", a2: "Abonnez-vous sur TikTok/YouTube, likez, partagez à 10 personnes, commentez votre adresse POL, envoyez les preuves sur WhatsApp.",
                     q3: "Quand le lancement ?", a3: "8 Mai 2026. Compte à rebours en page d'accueil.",
                     q4: "Comment miner ?", a4: "Achetez machine + batterie, connectez au dashboard, commencez à miner.",
-                    q5: "FTA est-il sécurisé ?", a5: "Oui, 100% open source, décentralisé, smart contracts audités. Utilisez MetaMask et ne partagez jamais votre seed phrase."
+                    q5: "FTA est-il sécurisé ?", a5: "Oui, 100% open source, décentralisé, smart contracts audités. Utilisez MetaMask et ne partagez jamais votre seed phrase.",
+                    q6: "Où télécharger le Whitepaper ?", a6: "Dans la section À propos ou Contact. Cliquez sur Télécharger le PDF pour obtenir le document technique complet.",
+                    q7: "Y a-t-il une offre spéciale Noël ?", a7: "Oui — l'airdrop communautaire de 1 000 000 FTA est notre cadeau de Noël. La participation est gratuite : suivez les quatre étapes de la section Airdrop. Aucun achat n'est requis et les récompenses sont envoyées sur votre wallet POL après vérification."
                 },
                 footer: {
                     tagline: "Miner. Échanger. Posséder.", quickLinks: "Liens", resources: "Ressources", contact: "Contact",
@@ -1330,155 +1701,197 @@
                 }
             },
             es: {
-                pageTitle: "FITIA_TOKEN (FTA) – Minar. Intercambiar. Poseer.",
-                nav: { home: "Inicio", about: "Acerca de", airdrop: "Airdrop", mining: "Minage", tokenomics: "Tokenomics", contact: "Contact" },
+                pageTitle: "FITIA_TOKEN (FTA) – Minar. Negociar. Poseer.",
+                nav: { home: "Inicio", about: "Acerca de", airdrop: "Airdrop", mining: "Minería", tokenomics: "Tokenomics", contact: "Contacto" },
                 hero: {
-                    title: "Miner. Échanger. <span>Posséder.</span>",
-                    description: "FITIA_TOKEN (FTA) est une cryptomonnaie 100% open source et décentralisée. Rejoignez la révolution du minage accessible sur Polygon.",
-                    stats: { airdrop: "FTA en Airdrop", opensource: "Open Source", trading: "Échange 24/7" },
-                    visual: { subtitle: "Minage décentralisé" }
+                    badge: "🎄 Edición navideña",
+                    title: "Minar. Negociar. <span>Poseer.</span>",
+                    description: "FITIA_TOKEN (FTA) es una criptomoneda 100 % de código abierto y descentralizada. Únete a la revolución de la minería accesible y segura en Polygon.",
+                    stats: { airdrop: "FTA en airdrop", opensource: "Código abierto", trading: "Comercio seguro" },
+                    visual: { subtitle: "El futuro de la minería descentralizada" }
                 },
-                countdown: { title: "🚀 Lancement dans", days: "J", hours: "H", minutes: "M", seconds: "S", date: "8 Mai 2026" },
+                countdown: { title: "🚀 Lanzamiento oficial en", days: "D", hours: "H", minutes: "M", seconds: "S", date: "8 de mayo de 2026" },
+                holiday: {
+                    barStrong: "Regalo navideño", barText: "— 1.000.000 FTA para la comunidad", close: "Cerrar el banner",
+                    badge: "Edición navideña · 25 de diciembre",
+                    title: "Un regalo de Navidad <span>para toda la comunidad</span>",
+                    intro: "Para celebrar las fiestas, FITIA_TOKEN destaca su airdrop comunitario de 1.000.000 FTA: participación gratuita, abierta a todos y pensada para recompensar a quienes apoyan el proyecto.",
+                    days: "Días", hours: "Horas", minutes: "Min", seconds: "Seg",
+                    date: "Próxima Navidad: 25 de diciembre",
+                    perk1: "Participación 100 % gratuita, sin compra obligatoria.",
+                    perk2: "1.000.000 FTA compartidos con la comunidad.",
+                    perk3: "Una cartera Polygon (POL) no custodiada para recibir tus FTA.",
+                    cta1: "Participar en el airdrop", cta2: "Hablar con el equipo",
+                    note: "Las recompensas se entregan tras verificar los pasos indicados en la sección Airdrop. Los criptoactivos conllevan riesgo: nunca compartas tu frase semilla."
+                },
                 features: {
-                    title: "Pourquoi FITIA_TOKEN ?", subtitle: "Conçu pour la communauté",
-                    card1: { title: "100% Open Source", desc: "Code auditable et transparent." },
-                    card2: { title: "Décentralisé", desc: "Vos actifs vous appartiennent." },
-                    card3: { title: "Minage Accessible", desc: "Machines optimisées." },
-                    card4: { title: "Échange 24/7", desc: "Sécurisé, sans intermédiaire." },
-                    card5: { title: "Communauté", desc: "Gouvernance DAO." },
-                    card6: { title: "Éco-Responsable", desc: "Consommation optimisée." }
+                    title: "¿Por qué FITIA_TOKEN?", subtitle: "Hecho por la comunidad, para la comunidad",
+                    card1: { title: "100 % código abierto", desc: "Código auditable y transparente. Contribuye, verifica, participa." },
+                    card2: { title: "Descentralizado", desc: "Sin control central. Tus activos son tuyos." },
+                    card3: { title: "Minería accesible", desc: "Equipos optimizados para todos, incluso principiantes." },
+                    card4: { title: "Comercio 24/7", desc: "Compra, vende y transfiere FTA en cualquier momento, con seguridad." },
+                    card5: { title: "Comunidad activa", desc: "Únete a una comunidad implicada. Participa en la gobernanza DAO." },
+                    card6: { title: "Respetuoso con el medioambiente", desc: "Consumo energético optimizado. Minería sostenible." }
                 },
                 airdrop: {
-                    title: "🎁 Airdrop <span>1M FTA</span>", subtitle: "Participez gratuitement !",
-                    step1: { title: "Abonnez-vous", desc: "TikTok + YouTube @FitiaOfficial" },
-                    step2: { title: "Likez & Partagez", desc: "Partagez à 10 personnes" },
-                    step3: { title: "Commentez", desc: "Votre adresse wallet POL" },
-                    step4: { title: "Preuve WhatsApp", desc: "Envoyez les screenshots" },
-                    visual: { share: "FTA à partager" }
+                    title: "🎁 Airdrop <span>1M FTA</span>", subtitle: "¡Participa gratis y recibe tokens FTA!",
+                    step1: { title: "Suscríbete", desc: "Sigue @FitiaOfficial en TikTok + YouTube" },
+                    step2: { title: "Dale like y comparte", desc: "Comparte el vídeo oficial con 10 personas" },
+                    step3: { title: "Comenta", desc: "Deja tu dirección de cartera POL en los comentarios" },
+                    step4: { title: "Envía la prueba", desc: "Comparte capturas en el grupo oficial de WhatsApp" },
+                    visual: { share: "FTA por repartir" }
                 },
                 mining: {
-                    title: "Équipements", subtitle: "Optimisés pour vos gains",
-                    card1: { title: "Machine FTA Pro" }, card2: { title: "Batterie FTA Energy" },
-                    order: "Commander"
+                    title: "Equipos de minería", subtitle: "Optimizados para maximizar tus recompensas FTA",
+                    card1: { title: "Máquina FTA Pro" }, card2: { title: "Batería FTA Energy" },
+                    order: "Pedir ahora"
                 },
                 tokenomics: {
-                    title: "Tokenomics", subtitle: "21 000 000 FTA au total",
-                    mining: "Minage", early: "Early", dev: "Dev", dao: "DAO",
-                    partnerships: "Partenaires", reserve: "Réserve",
-                    totalSupply: "Offre Totale"
+                    title: "Tokenomics", subtitle: "21.000.000 FTA de suministro total",
+                    mining: "Minería", early: "Primeros seguidores", dev: "Desarrollo", dao: "Tesorería DAO",
+                    partnerships: "Alianzas", reserve: "Reserva",
+                    totalSupply: "Suministro total"
                 },
                 contact: {
-                    title: "Contact", subtitle: "Réponse sous 24h",
-                    infoTitle: "Informations", support: "Support", whatsapp: "WhatsApp", website: "Site"
+                    title: "Contacto", subtitle: "Respuesta en 24 h",
+                    infoTitle: "Información de contacto", support: "Soporte", whatsapp: "WhatsApp", website: "Sitio web"
                 },
                 form: {
-                    name: "Nom", namePlaceholder: "Votre nom",
-                    email: "Email", emailPlaceholder: "votre@email.com",
-                    subject: "Sujet", subjectPlaceholder: "Sujet",
-                    message: "Message", messagePlaceholder: "Votre message...",
-                    send: "Envoyer", sending: "Envoi...",
-                    sent: "✅ Message envoyé !", error: "❌ Erreur. Réessayez."
+                    name: "Nombre completo", namePlaceholder: "Tu nombre",
+                    email: "Correo electrónico", emailPlaceholder: "tu@email.com",
+                    subject: "Asunto", subjectPlaceholder: "Asunto",
+                    message: "Mensaje", messagePlaceholder: "Tu mensaje...",
+                    send: "Enviar mensaje", sending: "Enviando...",
+                    sent: "✅ ¡Mensaje enviado!", error: "❌ Error. Inténtalo de nuevo."
                 },
                 faq: {
-                    title: "FAQ",
-                    q1: "Qu'est-ce que FTA ?", a1: "Cryptomonnaie 100% open source et décentralisée, inspirée du Bitcoin. Minage accessible et échange sécurisé 24/7 sur Polygon.",
-                    q2: "Comment participer à l'airdrop ?", a2: "Abonnez-vous sur TikTok/YouTube, likez, partagez à 10 personnes, commentez votre adresse POL, envoyez les preuves sur WhatsApp.",
-                    q3: "Quand le lancement ?", a3: "8 Mai 2026. Compte à rebours en page d'accueil.",
-                    q4: "Comment miner ?", a4: "Achetez machine + batterie, connectez au dashboard, commencez à miner.",
-                    q5: "FTA est-il sécurisé ?", a5: "Oui, 100% open source, décentralisé, smart contracts audités. Utilisez MetaMask et ne partagez jamais votre seed phrase."
+                    title: "Preguntas frecuentes",
+                    q1: "¿Qué es FITIA_TOKEN (FTA)?", a1: "Una criptomoneda 100 % de código abierto y descentralizada, inspirada en Bitcoin. Minería accesible y comercio seguro 24/7 en Polygon.",
+                    q2: "¿Cómo participar en el airdrop?", a2: "Suscríbete en TikTok y YouTube, dale like y comparte el vídeo con 10 personas, comenta tu dirección POL y envía las pruebas a nuestro grupo de WhatsApp.",
+                    q3: "¿Cuándo es el lanzamiento oficial?", a3: "El 8 de mayo de 2026. Cuenta atrás en la página de inicio.",
+                    q4: "¿Cómo se mina FTA?", a4: "Compra una máquina de minería y una batería compatible en nuestro marketplace, conéctalas a tu panel personal y empieza a minar.",
+                    q5: "¿FTA es seguro?", a5: "Sí: es 100 % de código abierto, totalmente descentralizado y los contratos inteligentes están auditados. Usa siempre una cartera no custodiada como MetaMask y nunca compartas tu frase semilla.",
+                    q6: "¿Dónde puedo descargar el Whitepaper?", a6: "En las secciones Acerca de o Contacto. Pulsa en «Descargar PDF» para obtener el documento técnico completo.",
+                    q7: "¿Hay alguna oferta especial de Navidad?", a7: "Sí: el airdrop comunitario de 1.000.000 FTA es nuestro regalo navideño. La participación es gratuita: sigue los cuatro pasos de la sección Airdrop. No se requiere ninguna compra y las recompensas se envían a tu cartera POL tras la verificación."
                 },
                 footer: {
-                    tagline: "Miner. Échanger. Posséder.", quickLinks: "Liens", resources: "Ressources", contact: "Contact",
-                    rights: "Tous droits réservés.",
-                    warningTitle: "⚠️", warning: "Crypto-actifs volatils. Risque de perte. Ce site est informatif. DYOR. 18+."
+                    tagline: "Minar. Negociar. Poseer.", quickLinks: "Enlaces rápidos", resources: "Recursos", contact: "Contacto",
+                    rights: "Todos los derechos reservados.",
+                    warningTitle: "⚠️", warning: "Los criptoactivos son volátiles. Riesgo de pérdida de capital. Sitio informativo. DYOR. 18+."
                 }
             },
             pt: {
                 pageTitle: "FITIA_TOKEN (FTA) – Minerar. Negociar. Possuir.",
-                nav: { home: "Início", about: "Sobre", airdrop: "Airdrop", mining: "Minage", tokenomics: "Tokenomics", contact: "Contact" },
+                nav: { home: "Início", about: "Sobre", airdrop: "Airdrop", mining: "Mineração", tokenomics: "Tokenomics", contact: "Contacto" },
                 hero: {
-                    title: "Miner. Échanger. <span>Posséder.</span>",
-                    description: "FITIA_TOKEN (FTA) est une cryptomonnaie 100% open source et décentralisée. Rejoignez la révolution du minage accessible sur Polygon.",
-                    stats: { airdrop: "FTA en Airdrop", opensource: "Open Source", trading: "Échange 24/7" },
-                    visual: { subtitle: "Minage décentralisé" }
+                    badge: "🎄 Edição de festas",
+                    title: "Minerar. Negociar. <span>Possuir.</span>",
+                    description: "A FITIA_TOKEN (FTA) é uma criptomoeda 100% open source e descentralizada. Junte-se à revolução da mineração acessível e segura na Polygon.",
+                    stats: { airdrop: "FTA em airdrop", opensource: "Código aberto", trading: "Negociação segura" },
+                    visual: { subtitle: "O futuro da mineração descentralizada" }
                 },
-                countdown: { title: "🚀 Lancement dans", days: "J", hours: "H", minutes: "M", seconds: "S", date: "8 Mai 2026" },
+                countdown: { title: "🚀 Lançamento oficial em", days: "D", hours: "H", minutes: "M", seconds: "S", date: "8 de maio de 2026" },
+                holiday: {
+                    barStrong: "Presente de Natal", barText: "— 1.000.000 FTA para a comunidade", close: "Fechar o banner",
+                    badge: "Edição de festas · 25 de dezembro",
+                    title: "Um presente de Natal <span>para toda a comunidade</span>",
+                    intro: "Para celebrar as festas, a FITIA_TOKEN destaca o seu airdrop comunitário de 1.000.000 FTA: participação gratuita, aberta a todos e pensada para recompensar quem apoia o projeto.",
+                    days: "Dias", hours: "Horas", minutes: "Min", seconds: "Seg",
+                    date: "Próximo Natal: 25 de dezembro",
+                    perk1: "Participação 100% gratuita, sem compra obrigatória.",
+                    perk2: "1.000.000 FTA partilhados com a comunidade.",
+                    perk3: "Uma carteira Polygon (POL) não-custodial para receber os seus FTA.",
+                    cta1: "Participar no airdrop", cta2: "Falar com a equipa",
+                    note: "As recompensas são entregues após verificação dos passos descritos na secção Airdrop. Os criptoativos envolvem risco — nunca partilhe a sua frase de recuperação."
+                },
                 features: {
-                    title: "Pourquoi FITIA_TOKEN ?", subtitle: "Conçu pour la communauté",
-                    card1: { title: "100% Open Source", desc: "Code auditable et transparent." },
-                    card2: { title: "Décentralisé", desc: "Vos actifs vous appartiennent." },
-                    card3: { title: "Minage Accessible", desc: "Machines optimisées." },
-                    card4: { title: "Échange 24/7", desc: "Sécurisé, sans intermédiaire." },
-                    card5: { title: "Communauté", desc: "Gouvernance DAO." },
-                    card6: { title: "Éco-Responsable", desc: "Consommation optimisée." }
+                    title: "Porque escolher a FITIA_TOKEN?", subtitle: "Feita pela comunidade, para a comunidade",
+                    card1: { title: "100% código aberto", desc: "Código auditável e transparente. Contribua, verifique, participe." },
+                    card2: { title: "Descentralizada", desc: "Sem controlo central. Os seus ativos pertencem-lhe." },
+                    card3: { title: "Mineração acessível", desc: "Máquinas otimizadas para todos, mesmo para iniciantes." },
+                    card4: { title: "Negociação 24/7", desc: "Compre, venda e transfira FTA a qualquer momento, com segurança." },
+                    card5: { title: "Comunidade ativa", desc: "Junte-se a uma comunidade empenhada. Participe na governação DAO." },
+                    card6: { title: "Amiga do ambiente", desc: "Consumo energético otimizado. Mineração sustentável." }
                 },
                 airdrop: {
-                    title: "🎁 Airdrop <span>1M FTA</span>", subtitle: "Participez gratuitement !",
-                    step1: { title: "Abonnez-vous", desc: "TikTok + YouTube @FitiaOfficial" },
-                    step2: { title: "Likez & Partagez", desc: "Partagez à 10 personnes" },
-                    step3: { title: "Commentez", desc: "Votre adresse wallet POL" },
-                    step4: { title: "Preuve WhatsApp", desc: "Envoyez les screenshots" },
-                    visual: { share: "FTA à partager" }
+                    title: "🎁 Airdrop <span>1M FTA</span>", subtitle: "Participe gratuitamente e receba tokens FTA!",
+                    step1: { title: "Subscreva", desc: "Siga @FitiaOfficial no TikTok + YouTube" },
+                    step2: { title: "Goste e partilhe", desc: "Partilhe o vídeo oficial com 10 pessoas" },
+                    step3: { title: "Comente", desc: "Deixe o endereço da sua carteira POL nos comentários" },
+                    step4: { title: "Envie a prova", desc: "Partilhe capturas de ecrã no grupo oficial de WhatsApp" },
+                    visual: { share: "FTA para partilhar" }
                 },
                 mining: {
-                    title: "Équipements", subtitle: "Optimisés pour vos gains",
-                    card1: { title: "Machine FTA Pro" }, card2: { title: "Batterie FTA Energy" },
-                    order: "Commander"
+                    title: "Equipamentos de mineração", subtitle: "Otimizados para maximizar as suas recompensas FTA",
+                    card1: { title: "Máquina FTA Pro" }, card2: { title: "Bateria FTA Energy" },
+                    order: "Encomendar"
                 },
                 tokenomics: {
-                    title: "Tokenomics", subtitle: "21 000 000 FTA au total",
-                    mining: "Minage", early: "Early", dev: "Dev", dao: "DAO",
-                    partnerships: "Partenaires", reserve: "Réserve",
-                    totalSupply: "Offre Totale"
+                    title: "Tokenomics", subtitle: "21.000.000 FTA de fornecimento total",
+                    mining: "Mineração", early: "Primeiros apoiantes", dev: "Desenvolvimento", dao: "Tesouro DAO",
+                    partnerships: "Parcerias", reserve: "Reserva",
+                    totalSupply: "Fornecimento total"
                 },
                 contact: {
-                    title: "Contact", subtitle: "Réponse sous 24h",
-                    infoTitle: "Informations", support: "Support", whatsapp: "WhatsApp", website: "Site"
+                    title: "Contacto", subtitle: "Resposta em 24 h",
+                    infoTitle: "Informações de contacto", support: "Apoio", whatsapp: "WhatsApp", website: "Website"
                 },
                 form: {
-                    name: "Nom", namePlaceholder: "Votre nom",
-                    email: "Email", emailPlaceholder: "votre@email.com",
-                    subject: "Sujet", subjectPlaceholder: "Sujet",
-                    message: "Message", messagePlaceholder: "Votre message...",
-                    send: "Envoyer", sending: "Envoi...",
-                    sent: "✅ Message envoyé !", error: "❌ Erreur. Réessayez."
+                    name: "Nome completo", namePlaceholder: "O seu nome",
+                    email: "E-mail", emailPlaceholder: "o.seu@email.com",
+                    subject: "Assunto", subjectPlaceholder: "Assunto",
+                    message: "Mensagem", messagePlaceholder: "A sua mensagem...",
+                    send: "Enviar mensagem", sending: "A enviar...",
+                    sent: "✅ Mensagem enviada!", error: "❌ Erro. Tente novamente."
                 },
                 faq: {
-                    title: "FAQ",
-                    q1: "Qu'est-ce que FTA ?", a1: "Cryptomonnaie 100% open source et décentralisée, inspirée du Bitcoin. Minage accessible et échange sécurisé 24/7 sur Polygon.",
-                    q2: "Comment participer à l'airdrop ?", a2: "Abonnez-vous sur TikTok/YouTube, likez, partagez à 10 personnes, commentez votre adresse POL, envoyez les preuves sur WhatsApp.",
-                    q3: "Quand le lancement ?", a3: "8 Mai 2026. Compte à rebours en page d'accueil.",
-                    q4: "Comment miner ?", a4: "Achetez machine + batterie, connectez au dashboard, commencez à miner.",
-                    q5: "FTA est-il sécurisé ?", a5: "Oui, 100% open source, décentralisé, smart contracts audités. Utilisez MetaMask et ne partagez jamais votre seed phrase."
+                    title: "Perguntas frequentes",
+                    q1: "O que é a FITIA_TOKEN (FTA)?", a1: "Uma criptomoeda 100% open source e descentralizada, inspirada no Bitcoin. Mineração acessível e negociação segura 24/7 na Polygon.",
+                    q2: "Como participar no airdrop?", a2: "Subscreva no TikTok e no YouTube, goste e partilhe o vídeo com 10 pessoas, comente o seu endereço POL e envie as provas para o nosso grupo de WhatsApp.",
+                    q3: "Quando é o lançamento oficial?", a3: "A 8 de maio de 2026. Contagem decrescente na página inicial.",
+                    q4: "Como minerar FTA?", a4: "Compre uma máquina de mineração e uma bateria compatível no nosso marketplace, ligue-as ao seu painel pessoal e comece a minerar.",
+                    q5: "A FTA é segura?", a5: "Sim: é 100% open source, totalmente descentralizada e os contratos inteligentes são auditados. Use sempre uma carteira não-custodial como a MetaMask e nunca partilhe a sua frase de recuperação.",
+                    q6: "Onde posso descarregar o Whitepaper?", a6: "Nas secções Sobre ou Contacto. Clique em «Descarregar PDF» para obter o documento técnico completo.",
+                    q7: "Existe alguma oferta especial de Natal?", a7: "Sim — o airdrop comunitário de 1.000.000 FTA é o nosso presente de Natal. A participação é gratuita: siga os quatro passos da secção Airdrop. Não é necessária qualquer compra e as recompensas são enviadas para a sua carteira POL após verificação."
                 },
                 footer: {
-                    tagline: "Miner. Échanger. Posséder.", quickLinks: "Liens", resources: "Ressources", contact: "Contact",
-                    rights: "Tous droits réservés.",
-                    warningTitle: "⚠️", warning: "Crypto-actifs volatils. Risque de perte. Ce site est informatif. DYOR. 18+."
+                    tagline: "Minerar. Negociar. Possuir.", quickLinks: "Ligações rápidas", resources: "Recursos", contact: "Contacto",
+                    rights: "Todos os direitos reservados.",
+                    warningTitle: "⚠️", warning: "Os criptoativos são voláteis. Risco de perda de capital. Site informativo. DYOR. 18+."
                 }
             }
         };
 
         let currentLang = 'en';
 
-        function changeLanguage(lang) {
+        function changeLanguage(lang, trigger) {
             currentLang = lang;
+
+            const activeBtn = trigger || document.querySelector(`.lang-btn[onclick="changeLanguage('${lang}')"]`);
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
+            if (activeBtn) activeBtn.classList.add('active');
+
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
                 const keys = key.split('.');
                 let value = translations[lang];
-                for (const k of keys) value = value[k];
+                for (const k of keys) value = value && value[k];
+                if (typeof value !== 'string') return;
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     element.placeholder = value;
                 } else {
                     element.innerHTML = value;
                 }
             });
+
+            document.querySelectorAll('[data-i18n-aria]').forEach(element => {
+                const key = element.getAttribute('data-i18n-aria');
+                const value = key.split('.').reduce((obj, k) => (obj ? obj[k] : undefined), translations[lang]);
+                if (typeof value === 'string') element.setAttribute('aria-label', value);
+            });
+
             document.documentElement.lang = lang;
-            localStorage.setItem('fitia_lang', lang);
+            try { localStorage.setItem('fitia_lang', lang); } catch (e) {}
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1488,6 +1901,9 @@
                 if (btn) btn.click();
             }
             initScrollAnimations();
+            initHolidayBar();
+            initSnow();
+            updateHolidayCountdown();
         });
 
         // ==================== MENU MOBILE ====================
@@ -1531,6 +1947,70 @@
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
+
+        // ==================== HOLIDAY / CHRISTMAS ====================
+        function holidaySeasonKey() {
+            return 'closed-' + nextChristmas().getFullYear();
+        }
+
+        function dismissHoliday() {
+            document.body.classList.remove('holiday-on');
+            try { localStorage.setItem('fitia_holiday_bar', holidaySeasonKey()); } catch (e) {}
+        }
+
+        function initHolidayBar() {
+            try {
+                if (localStorage.getItem('fitia_holiday_bar') === holidaySeasonKey()) {
+                    document.body.classList.remove('holiday-on');
+                }
+            } catch (e) {}
+        }
+
+        function nextChristmas() {
+            const now = new Date();
+            const year = now.getMonth() === 11 && now.getDate() > 25 ? now.getFullYear() + 1 : now.getFullYear();
+            return new Date(year, 11, 25, 0, 0, 0);
+        }
+
+        function updateHolidayCountdown() {
+            const days = document.getElementById('hcDays');
+            if (!days) return;
+            const distance = nextChristmas().getTime() - Date.now();
+            const pad = value => String(Math.max(0, Math.floor(value))).padStart(2, '0');
+            days.textContent = pad(distance / 86400000);
+            document.getElementById('hcHours').textContent = pad((distance % 86400000) / 3600000);
+            document.getElementById('hcMinutes').textContent = pad((distance % 3600000) / 60000);
+            document.getElementById('hcSeconds').textContent = pad((distance % 60000) / 1000);
+        }
+
+        function initSnow() {
+            const layer = document.getElementById('snowLayer');
+            if (!layer) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            const count = window.innerWidth < 768 ? 16 : 34;
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 0; i < count; i++) {
+                const flake = document.createElement('span');
+                const size = (Math.random() * 3 + 1.5).toFixed(1);
+                const duration = (Math.random() * 12 + 10).toFixed(1);
+
+                flake.className = 'snowflake';
+                flake.style.left = (Math.random() * 100).toFixed(2) + '%';
+                flake.style.width = size + 'px';
+                flake.style.height = size + 'px';
+                flake.style.opacity = (Math.random() * 0.45 + 0.25).toFixed(2);
+                flake.style.animationDuration = duration + 's';
+                flake.style.animationDelay = '-' + (Math.random() * duration).toFixed(1) + 's';
+                flake.style.setProperty('--drift', (Math.random() * 120 - 60).toFixed(0) + 'px');
+                fragment.appendChild(flake);
+            }
+
+            layer.appendChild(fragment);
+        }
+
+        setInterval(updateHolidayCountdown, 1000);
 
         // ==================== EMAIL FORM ====================
         function sendEmail(e) {
